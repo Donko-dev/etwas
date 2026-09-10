@@ -1,0 +1,78 @@
+<!doctype html>
+<!--
+  Etwas — Shell unifié. Own Your Commerce.
+  Fusionne les modules Etwas Pro (ex-Kalcul Pro) et Etwas ADS (ex-DONKO ADS)
+  dans un seul conteneur PWA, tous fichiers à plat, sans sous-dossier.
+  Édité par Empire Donko (TransTech Dynamic), Bénin — voir Mentions Légales
+  dans les modules. Transfert prévu vers DONKO UG (Allemagne) dès son
+  immatriculation effective.
+-->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Etwas | Own Your Commerce. — Caisse &amp; Marketplace, tout-en-un</title>
+<meta name="description" content="Etwas | Own Your Commerce. L'écosystème souverain, anonyme et local-first pour gérer votre caisse avec Etwas Pro et propulser vos ventes mondiales avec Etwas ADS.">
+<meta name="keywords" content="Etwas, caisse, facturation, devis, stock, marketplace, annonces, mobile money, local-first, anonyme, sans inscription">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://etwas.com/">
+
+<!-- Open Graph / réseaux sociaux -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://etwas.com/">
+<meta property="og:title" content="Etwas | Own Your Commerce.">
+<meta property="og:description" content="L'écosystème souverain, anonyme et local-first pour gérer votre caisse avec Etwas Pro et propulser vos ventes mondiales avec Etwas ADS.">
+<meta property="og:image" content="icon-512.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Etwas | Own Your Commerce.">
+<meta name="twitter:description" content="L'écosystème souverain, anonyme et local-first pour gérer votre caisse avec Etwas Pro et propulser vos ventes mondiales avec Etwas ADS.">
+<meta name="twitter:image" content="icon-512.png">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0F1D33">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Etwas">
+
+<link rel="stylesheet" href="EtwasShell.css">
+</head>
+<body>
+
+<!-- Écran de démarrage, retiré dès que les deux modules ont fini de charger -->
+<div id="etwasBoot">
+  <img src="icon-192.png" alt="Etwas">
+  <div class="spin" aria-hidden="true"></div>
+</div>
+
+<header id="etwasTopBar">
+  <div class="brand">
+    <img src="icon-192.png" alt="Etwas">
+    <div class="brand-text">
+      <span class="brand-name">ETWAS</span>
+      <span class="brand-slogan" id="brandSlogan">Own Your Commerce.</span>
+    </div>
+  </div>
+  <div id="etwasConnStatus"><span class="dot"></span><span>En ligne</span></div>
+</header>
+
+<div id="etwasModules">
+  <iframe id="frameKalcul" title="Etwas Caisse" src="etwas-kalcul.html"></iframe>
+  <iframe id="frameMarketplace" title="Etwas Marketplace" src="etwas-marketplace.html" class="etwas-hidden"></iframe>
+</div>
+
+<nav id="etwasTabBar">
+  <button type="button" data-tab="kalcul" class="active">
+    <span class="ic">🧾</span><span>Caisse</span>
+  </button>
+  <button type="button" data-tab="marketplace">
+    <span class="ic">🛍️</span><span>Marketplace</span>
+  </button>
+</nav>
+
+<script src="EtwasShell.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fond : carré arrondi (style app icon) -->
+  <rect x="0" y="0" width="512" height="512" rx="115" fill="#131B33"/>
+
+  <!-- Monogramme D : jambage -->
+  <rect x="141" y="140" width="72" height="232" rx="10" fill="#E8A93D"/>
+
+  <!-- Monogramme D : panse (arc plein) -->
+  <path d="M213,140 A116,116 0 0 1 213,372 Z" fill="#E8A93D"/>
+
+  <!-- Contre-forme (le "trou" du D), même couleur que le fond -->
+  <path d="M213,180 A76,76 0 0 1 213,332 Z" fill="#131B33"/>
+
+  <!-- Accent : le "coup de tampon" (rappel des tickets tarifs du site) -->
+  <circle cx="398" cy="152" r="23" fill="#C1440E"/>
+</svg>

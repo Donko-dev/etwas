@@ -1,0 +1,127 @@
+/* ============================================================
+   ETWAS SHELL — chrome minimal autour des modules fusionnés.
+   Ce fichier ne touche JAMAIS le style interne des modules
+   (Caisse / Marketplace) : chacun vit dans son propre <iframe>,
+   donc son CSS reste totalement isolé. Le shell ne stylise que
+   sa propre barre d'entête et sa barre d'onglets.
+   ============================================================ */
+:root{
+  --etwas-navy:#0F1D33;
+  --etwas-navy-2:#16294a;
+  --etwas-white:#FFFFFF;
+  --etwas-line:rgba(255,255,255,0.12);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;background:var(--etwas-navy);}
+body{
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+}
+
+/* ---- Entête minimal : logo + statut de connexion ---- */
+#etwasTopBar{
+  flex:0 0 auto;
+  background:var(--etwas-navy);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 14px;
+  gap:10px;
+}
+#etwasTopBar .brand{
+  display:flex; align-items:center; gap:9px;
+}
+#etwasTopBar .brand img{ width:28px; height:28px; border-radius:6px; display:block; }
+#etwasTopBar .brand-text{
+  display:flex; flex-direction:column; line-height:1.15;
+}
+#etwasTopBar .brand-name{
+  font-weight:800; font-size:14.5px; letter-spacing:.6px;
+}
+#etwasTopBar .brand-slogan{
+  font-size:8.5px;
+  font-weight:600;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.62);
+  margin-top:1px;
+}
+#etwasConnStatus{
+  font-size:11px;
+  padding:3px 9px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.1);
+  display:flex;
+  align-items:center;
+  gap:5px;
+  white-space:nowrap;
+}
+#etwasConnStatus .dot{ width:7px; height:7px; border-radius:50%; background:#2F6FE4; flex-shrink:0; }
+#etwasConnStatus.offline .dot{ background:#3A4E70; }
+#etwasConnStatus.offline{ background:rgba(217,127,102,0.18); }
+
+/* ---- Zone des modules (iframes empilées, une seule visible) ---- */
+#etwasModules{
+  flex:1 1 auto;
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+}
+#etwasModules iframe{
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  border:0;
+  background:#fff;
+}
+#etwasModules iframe.etwas-hidden{
+  visibility:hidden;
+  pointer-events:none;
+}
+
+/* ---- Barre d'onglets Etwas : bascule entre les deux mondes métier ---- */
+#etwasTabBar{
+  flex:0 0 auto;
+  display:flex;
+  background:var(--etwas-navy-2);
+  border-top:1px solid var(--etwas-line);
+  padding-bottom:env(safe-area-inset-bottom, 0);
+}
+#etwasTabBar button{
+  flex:1;
+  background:none;
+  border:none;
+  color:rgba(255,255,255,0.55);
+  font-family:inherit;
+  font-size:12px;
+  padding:9px 4px 8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  cursor:pointer;
+  transition:color .15s;
+}
+#etwasTabBar button .ic{ font-size:19px; line-height:1; }
+#etwasTabBar button.active{ color:#fff; }
+#etwasTabBar button.active .ic{ transform:translateY(-1px); }
+
+/* ---- Écran de démarrage (le temps que les iframes chargent) ---- */
+#etwasBoot{
+  position:fixed; inset:0; background:var(--etwas-navy);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+  z-index:999; color:#fff; transition:opacity .25s ease;
+}
+#etwasBoot img{ width:64px; height:64px; border-radius:16px; }
+#etwasBoot .spin{
+  width:26px; height:26px; border-radius:50%;
+  border:3px solid rgba(255,255,255,0.25); border-top-color:#fff;
+  animation:etwas-spin 0.8s linear infinite;
+}
+@keyframes etwas-spin{ to{ transform:rotate(360deg); } }
+#etwasBoot.etwas-hidden{ opacity:0; pointer-events:none; }

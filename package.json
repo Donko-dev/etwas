@@ -1,0 +1,18 @@
+{
+  "name": "etwas-server",
+  "version": "1.0.0",
+  "description": "Backend Etwas — paiements sécurisés, anti-rejeu, chaîne GoBD, horloge serveur.",
+  "main": "EtwasServer.js",
+  "scripts": {
+    "start": "node EtwasServer.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "dotenv": "^16.4.5"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}
