@@ -77,6 +77,9 @@
 
 const SHEET_BOUTIQUES = 'Boutiques';
 const SHEET_ANNONCES = 'Annonces';
+const SHEET_SUGGESTIONS = 'Suggestions';
+
+const HEADERS_SUGGESTIONS = ['Date','Module','Message'];
 
 const HEADERS_BOUTIQUES = ['ID','Date','Nom','Categorie','Pays','Ville','Adresse','Contact','Description','Devise','Logo','Boost','BoostExpiration','OwnerToken','Suspendue','RaisonSuspension','Latitude','Longitude'];
 const HEADERS_ANNONCES = ['ID','BoutiqueID','Date','Lien','Description','Prix','PrixMode','Contact',
@@ -142,6 +145,17 @@ function _kkiapayVerify(transactionId){
 function _ss(){ return SpreadsheetApp.openById(SPREADSHEET_ID); }
 function _sheetBoutiques(){ return _ss().getSheetByName(SHEET_BOUTIQUES); }
 function _sheetAnnonces(){ return _ss().getSheetByName(SHEET_ANNONCES); }
+function _sheetSuggestions(){
+  const ss = _ss();
+  let sheet = ss.getSheetByName(SHEET_SUGGESTIONS);
+  if(!sheet){
+    // Créée automatiquement au tout premier message reçu — évite d'exiger
+    // une étape manuelle de configuration côté Google Sheets.
+    sheet = ss.insertSheet(SHEET_SUGGESTIONS);
+    sheet.appendRow(HEADERS_SUGGESTIONS);
+  }
+  return sheet;
+}
 
 function _json(obj){
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
@@ -386,6 +400,7 @@ function doPost(e) {
       case 'unsuspendBoutique': return _unsuspendBoutique(data);
       case 'suspendAnnonce':    return _suspendAnnonce(data);
       case 'unsuspendAnnonce':  return _unsuspendAnnonce(data);
+      case 'submitFeedback':    return _submitFeedback(data);
       default: throw new Error('Action inconnue : ' + data.action);
     }
   } catch (err) {
@@ -655,6 +670,21 @@ function _renewAnnonces(data){
 // Appelée par le frontend juste avant d'ouvrir le widget Kkiapay : renvoie le
 // montant TTC exact (HT + TVA du pays choisi) à facturer réellement. C'est ce
 // montant, et lui seul, qui doit être transmis à openKkiapayWidget().
+/* ============================================================
+   BOÎTE À SUGGESTIONS — message libre envoyé depuis les boutons
+   flottants (Etwas ADS). Volontairement minimaliste : aucune
+   coordonnée n'est demandée à l'utilisateur, stocké tel quel pour
+   relecture manuelle, dans un nouvel onglet "Suggestions" créé
+   automatiquement au premier message.
+   ============================================================ */
+function _submitFeedback(data){
+  const message = String(data.message || '').trim().slice(0, 4000);
+  if(!message) throw new Error('Message vide.');
+  const sheet = _sheetSuggestions();
+  sheet.appendRow([new Date().toISOString(), data.module || 'inconnu', message]);
+  return _json({ success:true });
+}
+
 function _calculateVatAction(data){
   if(!data.plan) throw new Error('Forfait manquant.');
   const calc = _computeVat(data.plan, data.country);

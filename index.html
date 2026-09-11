@@ -22,15 +22,17 @@
 <meta property="og:url" content="https://etwas.com/">
 <meta property="og:title" content="Etwas | Own Your Commerce.">
 <meta property="og:description" content="L'écosystème souverain, anonyme et local-first pour gérer votre caisse avec Etwas Pro et propulser vos ventes mondiales avec Etwas ADS.">
-<meta property="og:image" content="icon-512.png">
+<meta property="og:image" content="etwas-og-image.png">
+<meta property="og:image:width" content="896">
+<meta property="og:image:height" content="326">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Etwas | Own Your Commerce.">
 <meta name="twitter:description" content="L'écosystème souverain, anonyme et local-first pour gérer votre caisse avec Etwas Pro et propulser vos ventes mondiales avec Etwas ADS.">
-<meta name="twitter:image" content="icon-512.png">
+<meta name="twitter:image" content="etwas-og-image.png">
 
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0F1D33">
+<meta name="theme-color" content="#082045">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -41,6 +43,11 @@
 <link rel="stylesheet" href="EtwasShell.css">
 </head>
 <body>
+
+<!-- Nécessaire pour la page de paiement unique (voir EtwasShell.js) -->
+<script src="https://cdn.kkiapay.me/k.js"></script>
+<script src="EtwasCloud.js"></script>
+
 
 <!-- Écran de démarrage, retiré dès que les deux modules ont fini de charger -->
 <div id="etwasBoot">
@@ -60,11 +67,91 @@
 </header>
 
 <div id="etwasModules">
+  <div id="etwasHome" class="etwas-hidden">
+    <div class="home-inner">
+      <img src="etwas-logo-full.png" alt="Etwas" class="home-logo">
+      <p class="home-slogan">Own Your Commerce.</p>
+
+      <button type="button" id="etwasInstallBtn" class="home-install-btn" style="display:none;">
+        📲 Installer Etwas
+      </button>
+
+      <div class="home-section">
+        <div class="home-section-title">Partenariat &amp; outils personnalisés</div>
+        <p class="home-section-text">Une idée d'outil sur mesure, fonctionnant hors connexion, hors serveur, hors base de données, pour votre activité et votre confidentialité ? Écrivez-nous.</p>
+        <div class="home-contact-btns">
+          <a class="home-contact-btn wa" href="https://wa.me/2290196809106?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20Etwas." target="_blank" rel="noopener noreferrer" aria-label="Contacter sur WhatsApp">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <circle cx="12" cy="12" r="12" fill="#25D366"/>
+              <path fill="#fff" d="M12 6.2a5.8 5.8 0 0 0-5 8.7l-.8 2.9 3-.8a5.8 5.8 0 1 0 2.8-10.8Zm0 1.3a4.5 4.5 0 0 1 3.9 6.8 4.5 4.5 0 0 1-7 1.1l-.2-.1-1.7.4.5-1.6-.1-.2a4.5 4.5 0 0 1 4.6-6.4Zm-2.1 2.3c-.1 0-.3 0-.4.2-.2.2-.6.6-.6 1.4s.6 1.7.7 1.8c.1.1 1.2 2 3 2.6.4.2.8.3 1 .3.5.1.9.1 1.2-.1.3-.2.6-.6.7-.9l.1-.4-1.6-.8-.5.6c0 .1-.1.1-.3 0-.2-.1-.7-.3-1.3-.9-.5-.4-.9-1-1-1.2-.1-.2 0-.2 0-.3l.4-.5c.1-.1.1-.2 0-.3l-.6-1.3c-.1-.2-.2-.2-.4-.2h-.3Z"/>
+            </svg>
+            WhatsApp
+          </a>
+          <a class="home-contact-btn mail" href="mailto:empiredonko@gmail.com?subject=Partenariat%20%2F%20outil%20personnalis%C3%A9%20-%20Etwas" aria-label="Contacter par email">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <circle cx="12" cy="12" r="12" fill="#082045"/>
+              <path fill="#fff" d="M6.5 8.3h11c.6 0 1 .4 1 1v5.4c0 .6-.4 1-1 1h-11c-.6 0-1-.4-1-1V9.3c0-.6.4-1 1-1Zm.7 1.1L12 12.9l4.8-3.5H7.2Z"/>
+            </svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <a class="home-store-btn" href="https://empirecode.mychariow.co/" target="_blank" rel="noopener noreferrer">
+        <span class="home-store-dot"></span> 🛍️ EMPIRE CODE
+      </a>
+
+      <p class="home-powered">Propulsé par <strong>EMPIRE DONKO</strong></p>
+    </div>
+  </div>
   <iframe id="frameKalcul" title="Etwas Caisse" src="etwas-kalcul.html"></iframe>
   <iframe id="frameMarketplace" title="Etwas Marketplace" src="etwas-marketplace.html" class="etwas-hidden"></iframe>
+
+  <!-- ============================================================
+       PAGE DE PAIEMENT UNIQUE — un seul et unique tunnel de paiement
+       pour TOUT le site (Etwas Pro ET Etwas ADS). Les réglages restent
+       séparés dans chaque module ; seul le paiement est centralisé ici.
+       Tarifs repris de la grille Etwas ADS (ex-DONKO ADS). Accessible
+       en interne via showTab('payment') — jamais un onglet permanent
+       de la barre de navigation, pour ne pas encombrer l'interface une
+       fois l'accès débloqué.
+       ============================================================ -->
+  <div id="etwasPayment" class="etwas-hidden">
+    <div class="pay-inner">
+      <button type="button" id="payBackBtn" class="pay-back-btn">← <span id="payBackLabel">Retour</span></button>
+      <h1>Etwas Pro &amp; Etwas ADS</h1>
+      <p class="pay-sub" id="paySubtitle">Un seul paiement débloque l'intégralité de la caisse (Etwas Pro) et de la marketplace (Etwas ADS).</p>
+
+      <div class="pay-status" id="payStatusBanner" style="display:none;"></div>
+
+      <div class="pay-plans" id="payPlansGrid"></div>
+
+      <div class="pay-gateways" id="payGatewaysRow">
+        <button type="button" class="pay-gateway-btn" id="payKkiapayBtn">
+          <span class="pay-gateway-name">KKiaPay</span><span class="pay-gateway-note">Mobile Money · Carte</span>
+        </button>
+        <button type="button" class="pay-gateway-btn" id="payPlisioBtn">
+          <span class="pay-gateway-name">Plisio</span><span class="pay-gateway-note">USDT · BTC · Crypto</span>
+        </button>
+        <button type="button" class="pay-gateway-btn disabled" id="payStripeBtn" disabled>
+          <span class="pay-gateway-name">Stripe</span><span class="pay-gateway-note">Bientôt disponible</span>
+        </button>
+        <button type="button" class="pay-gateway-btn disabled" id="payPaypalBtn" disabled>
+          <span class="pay-gateway-name">PayPal</span><span class="pay-gateway-note">Bientôt disponible</span>
+        </button>
+      </div>
+
+      <div id="payMsg" class="pay-msg"></div>
+
+      <p class="pay-hint">Paiement unique via KKiaPay ou Plisio — aucun prélèvement automatique, aucune information bancaire enregistrée chez nous. À la fin de la période, revenez ici et repayez le plan de votre choix pour continuer.</p>
+    </div>
+  </div>
 </div>
 
 <nav id="etwasTabBar">
+  <button type="button" data-tab="home">
+    <span class="ic">🏠</span><span>Accueil</span>
+  </button>
   <button type="button" data-tab="kalcul" class="active">
     <span class="ic">🧾</span><span>Caisse</span>
   </button>

@@ -8,7 +8,7 @@
 <meta name="keywords" content="annonces Bénin, petites annonces internationales, publicité boutique, vendre en ligne, acheter Cotonou, annonces Togo, annonces Côte d'Ivoire, annonces Sénégal, marketplace international, mobile money, Kkiapay, commerce local">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://etwas.app/">
-<meta name="theme-color" content="#0F1D33">
+<meta name="theme-color" content="#082045">
 
 <!-- Open Graph / réseaux sociaux -->
 <meta property="og:type" content="website">
@@ -58,8 +58,8 @@
 <script src="https://cdn.kkiapay.me/k.js"></script>
 <style>
   :root{
-    --gold:#2F6FE4; --brick:#3A4E70; --jade:#1B3A66; --navy:#0F1D33; --navy-2:#16294A;
-    --bg:#FFFFFF; --surface:#FFFFFF; --text:#0F1D33; --muted:#5C6B85; --border:rgba(15,29,51,0.12);
+    --gold:#2F6FE4; --brick:#3A4E70; --jade:#1B3A66; --navy:#082045; --navy-2:#16294A;
+    --bg:#FFFFFF; --surface:#FFFFFF; --text:#082045; --muted:#5C6B85; --border:rgba(15,29,51,0.12);
     --notch-bg:#FFFFFF;
   }
   html[data-theme="dark"]{
@@ -537,8 +537,7 @@
 
   <nav class="nav">
     <div class="brand">
-      <img src="icon-192.png" alt="Etwas">
-      <span>ETWAS · Marketplace</span>
+      <img src="etwas-ads-logo.png" alt="Etwas ADS" style="height:28px;width:auto;border-radius:0;">
     </div>
     <div class="actions">
       <button id="langToggle">EN</button>
@@ -795,21 +794,9 @@
         <div class="section-head">
           <span class="tag" data-i18n="tagPricing">Choisissez votre accès</span>
           <h2 data-i18n="pricingTitle">Un plan pour chaque budget</h2>
-          <p data-i18n="pricingText">1€ pour 30 jours d'accès total et illimité. Ensuite, choisissez votre abonnement pour continuer à publier sans limite.</p>
+          <p data-i18n="pro_unified_hint">Un seul paiement débloque Etwas ADS (Marketplace) ET Etwas Pro (Caisse) — la page de paiement est désormais commune aux deux.</p>
         </div>
-        <div class="search-bar" style="margin-bottom:14px;">
-          <label style="margin:0;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;white-space:nowrap;" data-i18n="displayCurrencyLabel">💱 Afficher les prix en :</label>
-          <select id="displayCurrencySelectPro" style="flex:1;"></select>
-        </div>
-        <div class="search-bar" style="margin-bottom:14px;">
-          <label style="margin:0;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;white-space:nowrap;" data-i18n="billingCountryLabel">🌍 Pays de facturation (pour la TVA applicable) :</label>
-          <select id="billingCountrySelect" style="flex:1;"></select>
-        </div>
-        <p class="hint" data-i18n="vatIncludedNote" style="margin-top:-8px;">TVA locale incluse selon votre pays de facturation. Le montant exact (HT + TVA) est calculé juste avant le paiement.</p>
-        <p class="plans-hint" data-i18n="plansSwipeHint">👉 Faites glisser pour voir tous les plans</p>
-        <div class="plans-scroll" id="plansGrid"></div>
-        <p class="notice tip" data-i18n="currencyPaymentNotice">💳 Les prix ci-dessus sont indicatifs. Le paiement de l'abonnement se fait toujours en Francs CFA (FCFA), via Kkiapay (Mobile Money ou carte bancaire Visa/Mastercard).</p>
-        <p class="notice warn" data-i18n="stayOnPageNotice">⚠️ Important : après avoir payé, restez sur cette page jusqu'au message « Paiement confirmé ! ». Si vous fermez l'application avant ce message, votre accès risque de ne pas s'activer même si le paiement a été débité.</p>
+        <button type="button" id="goUnifiedPayBtn" class="btn btn-navy" style="width:100%;" data-i18n="pro_unified_btn">Voir les offres et payer</button>
         <p class="disclaimer" data-i18n="disclaimerText">
           Paiement unique via Kkiapay (Mobile Money ou carte bancaire) — aucun prélèvement automatique, aucune information bancaire enregistrée chez nous.
           À la fin de la période, votre boutique disparaît automatiquement de la liste ; revenez payer le plan de votre choix pour continuer.
@@ -887,26 +874,37 @@
       <button data-modal="cgu" data-i18n="navCgu">CGU</button>
     </div>
 
-    <a class="store-btn" href="https://empirecode.mychariow.co" target="_blank" rel="noopener" data-i18n="storeBtn">🛒 EMPIRE CODE</a>
-
+    <!-- EMPIRE CODE et le bloc "Partenariat / outils sur mesure" vivent
+         désormais UNE SEULE FOIS sur la page d'accueil du shell Etwas
+         (index.html). Les deux boutons ci-dessous restent : ce sont des
+         boîtes à suggestions internes (aucune app tierce, aucune
+         coordonnée affichée) — voir openSuggestModal(). -->
     <div class="footer-contact">
-      <a class="blink-jade" href="https://wa.me/2290196809106" target="_blank" rel="noopener">
+      <button type="button" id="footSuggestWaBtn" class="blink-jade" style="border:none;cursor:pointer;font:inherit;">
         <svg viewBox="0 0 32 32" fill="#fff" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.362.687 4.564 1.872 6.417L4 29l7.78-2.04A11.94 11.94 0 0 0 16.001 27C22.63 27 28 21.627 28 15S22.63 3 16.001 3zm0 21.818c-1.99 0-3.86-.55-5.46-1.507l-.392-.232-4.62 1.21 1.234-4.505-.255-.406A9.77 9.77 0 0 1 5.182 15c0-5.967 4.85-10.818 10.819-10.818 5.966 0 10.818 4.851 10.818 10.818 0 5.968-4.852 10.818-10.818 10.818zm5.94-8.106c-.326-.163-1.928-.951-2.227-1.06-.299-.109-.516-.163-.733.163-.217.326-.84 1.06-1.03 1.278-.19.217-.38.244-.706.081-.326-.163-1.375-.507-2.62-1.615-.968-.863-1.622-1.929-1.812-2.255-.19-.326-.02-.502.143-.664.147-.146.326-.38.489-.57.163-.19.217-.326.326-.543.109-.217.054-.407-.027-.57-.081-.163-.733-1.765-1.004-2.417-.264-.634-.532-.548-.733-.558l-.624-.011c-.217 0-.57.081-.868.407-.299.326-1.14 1.114-1.14 2.718 0 1.604 1.167 3.153 1.33 3.37.163.217 2.294 3.5 5.556 4.91.777.335 1.383.535 1.856.685.78.248 1.489.213 2.05.129.625-.093 1.928-.788 2.2-1.549.272-.76.272-1.412.19-1.549-.081-.136-.298-.217-.624-.38z"/></svg>
-        WhatsApp
-      </a>
-      <a class="email blink" href="mailto:empiredonko@gmail.com">
+        <span data-i18n="footer_suggest_btn">Suggestion</span>
+      </button>
+      <button type="button" id="footSuggestMailBtn" class="email blink" style="border:none;cursor:pointer;font:inherit;">
         <svg viewBox="0 0 24 24" fill="#FFFFFF" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        Email
-      </a>
+        <span data-i18n="footer_suggest_btn">Suggestion</span>
+      </button>
     </div>
-
-    <p style="text-align:center;font-size:13px;color:#FFFFFF;max-width:420px;margin:0 auto 14px;" data-i18n="partnershipText">
-      Une idée d'outil sur mesure, fonctionnant hors connexion, hors serveur, hors base de données, pour votre activité et votre confidentialité ? Écrivez-nous.
-    </p>
 
     <p class="footer-note">Etwas ADS — <span data-i18n="footerTag">votre commerce, vu par tout le monde.</span><br>
       <b data-i18n="poweredBy">Powered by EMPIRE DONKO</b></p>
   </footer>
+
+  <!-- Formulaire de suggestion interne (aucune app tierce, aucune coordonnée affichée) -->
+  <div id="suggestOverlay" class="modal-overlay" style="display:none;">
+    <div class="modal-box" style="max-width:420px;">
+      <button type="button" id="suggestModalClose" class="modal-close" aria-label="Fermer">✕</button>
+      <h3 data-i18n="suggest_title">Une suggestion pour Etwas ADS ?</h3>
+      <p class="hint" data-i18n="suggest_intro">Votre message est transmis directement à l'équipe Etwas. Aucune application externe ne s'ouvre, et aucune coordonnée personnelle n'est demandée.</p>
+      <textarea id="suggestText" rows="5" data-i18n-ph="suggest_placeholder" placeholder="Votre idée, votre remarque..." style="width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px;font-family:inherit;font-size:14px;resize:vertical;"></textarea>
+      <div id="suggestMsg" class="hint" style="min-height:18px;margin-top:6px;"></div>
+      <button type="button" id="suggestSendBtn" class="btn btn-navy" style="width:100%;margin-top:10px;" data-i18n="suggest_send">Envoyer</button>
+    </div>
+  </div>
 
   <!-- STICKY PAY BAR -->
   <div class="paybar">
@@ -960,12 +958,12 @@ const CONFIG = {
 const RIBBON_MESSAGES = {
   fr: [
     { text:"👋 Bienvenue sur Etwas ADS — publiez votre boutique et soyez vu partout dans le monde !  •  📣 1€ pour 30 jours d'accès total  •  💳 Paiement en Mobile Money ou carte bancaire via Kkiapay", bg:'var(--navy)', color:'#FFFFFF' },
-    { text:"🚀 Boostez votre boutique pour passer en vedette pendant 31 jours  •  ⭐ Plus votre plan est grand, mieux vous êtes mis en avant  •  🔒 Vos données restent sur votre appareil", bg:'#0F1D33', color:'var(--gold)' },
+    { text:"🚀 Boostez votre boutique pour passer en vedette pendant 31 jours  •  ⭐ Plus votre plan est grand, mieux vous êtes mis en avant  •  🔒 Vos données restent sur votre appareil", bg:'#082045', color:'var(--gold)' },
     { text:"🛍️ Produits physiques ou digitaux, locaux ou internationaux : trouvez-les tous sur Etwas ADS  •  📲 Installez l'application dès maintenant !", bg:'var(--brick)', color:'#ffffff' }
   ],
   en: [
     { text:"👋 Welcome to Etwas ADS — publish your shop and get seen anywhere in the world!  •  📣 €1 for 30 days of full access  •  💳 Pay by Mobile Money or bank card via Kkiapay", bg:'var(--navy)', color:'#FFFFFF' },
-    { text:"🚀 Boost your shop to get featured for 31 days  •  ⭐ The bigger your plan, the better your visibility  •  🔒 Your data stays on your device", bg:'#0F1D33', color:'var(--gold)' },
+    { text:"🚀 Boost your shop to get featured for 31 days  •  ⭐ The bigger your plan, the better your visibility  •  🔒 Your data stays on your device", bg:'#082045', color:'var(--gold)' },
     { text:"🛍️ Physical or digital, local or international products : find them all on Etwas ADS  •  📲 Install the app now!", bg:'var(--brick)', color:'#ffffff' }
   ]
 };
@@ -985,7 +983,7 @@ const CURRENCIES = [
 function convertFromXOF(amountXOF, toId){
   const cur = CURRENCIES.find(c=>c.id===toId) || CURRENCIES[0];
   const val = amountXOF / cur.rateToXOF;
-  return val.toLocaleString(state && state.lang==='fr' ? 'fr-FR' : 'en-US', {minimumFractionDigits:cur.decimals, maximumFractionDigits:cur.decimals}) + ' ' + cur.symbol;
+  return val.toLocaleString(state && state.lang==='fr' ? 'fr-FR' : state && state.lang==='de' ? 'de-DE' : 'en-US', {minimumFractionDigits:cur.decimals, maximumFractionDigits:cur.decimals}) + ' ' + cur.symbol;
 }
 function convertToXOF(amount, fromId){
   const cur = CURRENCIES.find(c=>c.id===fromId) || CURRENCIES[0];
@@ -1178,7 +1176,7 @@ const PLANS = BASE_PLANS.map((p, i) => ({
 }));
 
 /* ================== I18N ================== */
-const I18N = { fr:{}, en:{} };
+const I18N = { fr:{}, en:{}, de:{} };
 
 I18N.fr = {
   eyebrow:"Marketplace de produits physiques et digitaux — pour tous, partout dans le monde",
@@ -1206,6 +1204,7 @@ I18N.fr = {
   resultsCount:"annonce(s)",
   tagPricing:"Choisissez votre accès", pricingTitle:"Un plan pour chaque budget",
   pricingText:"1€ pour 30 jours d'accès total et illimité. Ensuite, choisissez votre abonnement pour continuer à publier sans limite.",
+  pro_unified_hint:"Un seul paiement débloque Etwas ADS (Marketplace) ET Etwas Pro (Caisse) — la page de paiement est désormais commune aux deux.", pro_unified_btn:"Voir les offres et payer",
   plansSwipeHint:"👉 Faites glisser pour voir tous les plans",
   disclaimerText:"Paiement unique via Kkiapay (Mobile Money ou carte bancaire Visa/Mastercard) — aucun prélèvement automatique, aucune information bancaire enregistrée chez nous. À la fin de la période, votre boutique disparaît automatiquement de la liste ; revenez payer le plan de votre choix pour continuer. C'est le seul moment où une connexion internet est nécessaire.",
   boostTitle:"🚀 Mettre ma boutique en vedette",
@@ -1223,7 +1222,11 @@ I18N.fr = {
   lblChooseShop:"Dans quelle boutique publier ?", errChooseShop:"Choisissez d'abord une boutique.",
   lblPriceMode:"Affichage du prix sur l'annonce",
   priceModeNormal:"Prix normal", priceModeBarre:"Prix barré (promotion)", priceModeMasque:"Ne pas afficher le prix",
-  lblAdContact:"Contact affiché sur cette annonce (bouton vert)", contactBtn:"📞 Contacter",
+  lblAdContact:"Contact affiché sur cette annonce (bouton vert)", contactBtn:"📞 Contacter", expressBuyBtn:"Achat Express 1-Clic",
+  footer_suggest_btn:"Suggestion", suggest_title:"Une suggestion pour Etwas ADS ?",
+  suggest_intro:"Votre message est transmis directement à l'équipe Etwas. Aucune application externe ne s'ouvre, et aucune coordonnée personnelle n'est demandée.",
+  suggest_placeholder:"Votre idée, votre remarque...", suggest_send:"Envoyer", suggest_empty:"Écrivez votre message avant d'envoyer.",
+  suggest_sending:"Envoi en cours...", suggest_thanks:"Merci ! Votre message a bien été transmis.",
   editBtn:"Modifier", noAdYet:"Aucune annonce dans cette boutique.",
   confirmDeleteShop:"Supprimer définitivement cette boutique et toutes ses annonces ?",
   myShopsHint:"Gérez vos boutiques et les annonces publiées dans chacune : modifier, supprimer, partager, booster.",
@@ -1340,6 +1343,7 @@ I18N.en = {
   resultsCount:"listing(s)",
   tagPricing:"Choose your access", pricingTitle:"A plan for every budget",
   pricingText:"€1 for 30 days of full, unlimited access. After that, choose your subscription to keep publishing without limit.",
+  pro_unified_hint:"A single payment unlocks both Etwas ADS (Marketplace) AND Etwas Pro (Register) — the payment page is now shared between them.", pro_unified_btn:"See plans and pay",
   plansSwipeHint:"👉 Swipe to see all plans",
   disclaimerText:"One-time payment via Kkiapay (Mobile Money or Visa/Mastercard bank card) — no automatic debit, no banking information stored with us. When the period ends, your shop automatically disappears from the list; come back and pay the plan of your choice to continue. This is the only moment an internet connection is needed.",
   boostTitle:"🚀 Feature my shop",
@@ -1357,7 +1361,11 @@ I18N.en = {
   lblChooseShop:"Which shop should this be published in?", errChooseShop:"Choose a shop first.",
   lblPriceMode:"Price display on the listing",
   priceModeNormal:"Normal price", priceModeBarre:"Struck-through price (promo)", priceModeMasque:"Don't show the price",
-  lblAdContact:"Contact shown on this listing (green button)", contactBtn:"📞 Contact",
+  lblAdContact:"Contact shown on this listing (green button)", contactBtn:"📞 Contact", expressBuyBtn:"1-Click Express Purchase",
+  footer_suggest_btn:"Suggestion", suggest_title:"A suggestion for Etwas ADS?",
+  suggest_intro:"Your message goes straight to the Etwas team. No external app opens, and no personal contact info is requested.",
+  suggest_placeholder:"Your idea, your feedback...", suggest_send:"Send", suggest_empty:"Write your message before sending.",
+  suggest_sending:"Sending...", suggest_thanks:"Thank you! Your message has been sent.",
   editBtn:"Edit", noAdYet:"No listing in this shop yet.",
   confirmDeleteShop:"Permanently delete this shop and all its listings?",
   myShopsHint:"Manage your shops and the listings published in each: edit, delete, share, boost.",
@@ -1447,6 +1455,145 @@ I18N.en = {
   geoRefusedFilter:"Location unavailable — showing the worldwide catalog.",
   offlineNote:"Offline view — latest available update"
 };
+I18N.de = {
+  eyebrow:"Marktplatz für physische und digitale Produkte — für alle, überall auf der Welt",
+  heroTitle:"Ihr Geschäft, von allen gesehen.",
+  heroText:"Erstellen Sie das Schaufenster Ihres Geschäfts, finden Sie, was Sie in Ihrer Nähe brauchen, und veröffentlichen Sie per Mobile Money & Bankkarte — ohne dauerhafte Internetverbindung.",
+  btnAdd2:"📣 Mein Geschäft veröffentlichen", exploreBtn:"Anzeigen durchsuchen",
+  noticeCopy:"⚠️ Das Kopieren von Inhalten oder des Geschäfts eines anderen Nutzers ist strengstens untersagt und kann zur sofortigen Löschung ohne Vorankündigung führen.",
+  noticeIndex:"💡 Je größer Ihr Abonnementplan, desto besser wird Ihr Geschäft indexiert und in der Liste hervorgehoben. Geboostete Geschäfte erscheinen 31 Tage lang (verlängerbar) ganz oben; alle Anzeigen bleiben in der öffentlichen Liste sichtbar, solange das Abonnement des Verkäufers aktiv ist.",
+  searchPh:"Ein Produkt, eine Dienstleistung, ein Geschäft suchen...",
+  allCities:"Ganz Benin", allCountries:"Gesamtes Gebiet", chooseCity:"Standort wählen",
+  choosePays:"Ein Land wählen", chooseCity2:"Eine Stadt wählen", confirm:"Bestätigen", allCitiesOf:"Alle Städte", phCity:"Z. B.: Cotonou",
+  lblCountry:"Land", chooseCountryFirst:"Wählen Sie zuerst ein Land",
+  tagAccount:"Mein Konto", accountTitle:"Mein Abonnement", historyTitle:"Verlauf",
+  noHistory:"Bisher keine Vorgänge.",
+  tagCommunity:"Treten Sie uns bei", communityTitle:"Unsere Community &amp; unsere Tools",
+  whatsGroupIntro:"Treten Sie der WhatsApp-Gruppe bei, um nichts von Etwas ADS zu verpassen: Neuigkeiten und Updates.",
+  kalculIntro:"Sie haben Kunden und verkaufen, aber noch kein Verwaltungstool — oder suchen weitere Funktionen? Testen Sie Etwas Pro, auch offline.",
+  whatsGroupBtn:"Etwas ADS WhatsApp-Gruppe", kalculBtn:"Etwas Pro — Rechnungen, Angebote & Kasse",
+  tagMyShops:"Auf Geschäftsebene", myShopsTitle:"Meine Geschäfte",
+  noAccess:"Derzeit kein aktives Abonnement.",
+  histSub:"Abonnement", histBoost:"Boost",
+  tagGallery:"Das Schaufenster", galleryTitle:"Finden Sie, was Sie suchen",
+  loading:"Anzeigen werden geladen…",
+  sortRecent:"Neueste zuerst", sortPlan:"Bestes Ranking", sortDistance:"Nächstgelegen", sortAZ:"A → Z", sortZA:"Z → A",
+  resultsCount:"Anzeige(n)",
+  tagPricing:"Wählen Sie Ihren Zugang", pricingTitle:"Ein Plan für jedes Budget",
+  pricingText:"1€ für 30 Tage vollen, unbegrenzten Zugang. Wählen Sie danach Ihr Abonnement, um weiterhin ohne Limit zu veröffentlichen.",
+  pro_unified_hint:"Eine einzige Zahlung schaltet sowohl Etwas ADS (Marktplatz) als auch Etwas Pro (Kasse) frei — die Zahlungsseite ist jetzt für beide gemeinsam.", pro_unified_btn:"Angebote ansehen und bezahlen",
+  plansSwipeHint:"👉 Wischen Sie, um alle Pläne zu sehen",
+  disclaimerText:"Einmalige Zahlung über Kkiapay (Mobile Money oder Visa/Mastercard) — keine automatische Abbuchung, keine Bankdaten bei uns gespeichert. Am Ende des Zeitraums verschwindet Ihr Geschäft automatisch aus der Liste; kommen Sie zurück, um den gewünschten Plan zu bezahlen und fortzufahren. Dies ist der einzige Moment, in dem eine Internetverbindung nötig ist.",
+  boostTitle:"🚀 Mein Geschäft hervorheben",
+  boostText:"3.000 F CFA, einmalige Zahlung, 31 Tage gültig und danach verlängerbar. Ihr Geschäft erscheint ganz oben in der Liste, vor den anderen.",
+  boostBtn:"Boosten — 3.000 F CFA",
+  tagShop:"Ihr Geschäft", shopFormTitle:"Ein Geschäft erstellen",
+  shopFormHint:"Ein Geschäft bleibt privat (nur unter „Meine Geschäfte\u201c sichtbar), solange es nicht geboostet ist. Die darin veröffentlichten Anzeigen erscheinen öffentlich.",
+  lblShopDesc:"Ausführliche Beschreibung des Geschäfts", phShopDesc:"Stellen Sie Ihr Geschäft, Ihre Öffnungszeiten, Ihre Spezialität vor...",
+  lblCurrency:"Bevorzugte Währung des Geschäfts", lblLogo2:"Firmen-/Geschäftslogo (jpg/png/webp)",
+  btnCreateShop:"Geschäft erstellen", btnSaveEdit:"Änderungen speichern",
+  navCreateShop:"Ein Geschäft erstellen", navEditShop:"Ein Geschäft bearbeiten",
+  navPublishAd:"Eine Anzeige veröffentlichen", navManageAds:"Eine Anzeige bearbeiten oder löschen",
+  chooseShopToEdit:"Wählen Sie das zu bearbeitende Geschäft", chooseShopToManageAds:"Wählen Sie das Geschäft, dessen Anzeigen Sie verwalten möchten",
+  okShopSaved:"Geschäft gespeichert ✅",
+  lblChooseShop:"In welchem Geschäft veröffentlichen?", errChooseShop:"Wählen Sie zuerst ein Geschäft.",
+  lblPriceMode:"Preisanzeige auf der Anzeige",
+  priceModeNormal:"Normaler Preis", priceModeBarre:"Durchgestrichener Preis (Aktion)", priceModeMasque:"Preis nicht anzeigen",
+  lblAdContact:"Auf dieser Anzeige angezeigter Kontakt (grüner Button)", contactBtn:"📞 Kontaktieren", expressBuyBtn:"1-Klick-Express-Kauf",
+  footer_suggest_btn:"Vorschlag", suggest_title:"Ein Vorschlag für Etwas ADS?",
+  suggest_intro:"Ihre Nachricht geht direkt an das Etwas-Team. Es öffnet sich keine externe App, und es werden keine persönlichen Kontaktdaten verlangt.",
+  suggest_placeholder:"Ihre Idee, Ihre Anmerkung...", suggest_send:"Senden", suggest_empty:"Schreiben Sie Ihre Nachricht, bevor Sie senden.",
+  suggest_sending:"Wird gesendet...", suggest_thanks:"Danke! Ihre Nachricht wurde übermittelt.",
+  editBtn:"Bearbeiten", noAdYet:"Noch keine Anzeige in diesem Geschäft.",
+  confirmDeleteShop:"Dieses Geschäft und alle seine Anzeigen endgültig löschen?",
+  myShopsHint:"Verwalten Sie Ihre Geschäfte und die darin veröffentlichten Anzeigen: bearbeiten, löschen, teilen, boosten.",
+  noShopYet:"Sie haben noch kein Geschäft erstellt.",
+  tagForm:"Ihre Anzeige", formTitle:"Eine Anzeige oder ein Produkt veröffentlichen",
+  lblName:"Name des Unternehmens / Geschäfts", phName:"Z. B.: Boutique Awa",
+  lblCategory:"Kategorie / Tätigkeit", lblCity:"Stadt",
+  lblAddress:"Adresse / Viertel", phAddress:"Viertel, Orientierungspunkt...",
+  lblShopLocation:"Standort des Geschäfts (empfohlen)", btnCaptureGeo:"Meinen aktuellen Standort verwenden",
+  geoStatusHint:"Ermöglicht Käufern, Sie über den Filter „In meiner Nähe\u201c zu finden. Optional — Ihr Geschäft bleibt auch ohne Koordinaten sichtbar, erscheint nur nicht in der Entfernungssortierung.",
+  geoUnsupported:"Geolokalisierung auf diesem Gerät nicht verfügbar.", geoLocating:"Standortsuche läuft...",
+  geoCaptured:"✅ Standort gespeichert.", geoDenied:"Standort verweigert oder nicht verfügbar — Sie können auch ohne fortfahren.",
+  lblContact:"Kontakt (Telefon / WhatsApp)", phContact:"+229...",
+  lblLink:"Link der zu bewerbenden Website (optional)",
+  lblDesc:"Ausführliche Beschreibung", phDesc:"Beschreiben Sie Ihre Tätigkeit, Ihre Produkte, Ihre Öffnungszeiten...",
+  lblPrice:"Preis (optional)", phPrice:"Z. B.: 5000",
+  priceHint:"Der Betrag wird in der gewählten Währung gespeichert; jeder Besucher kann ihn anschließend in seiner bevorzugten Währung anzeigen lassen.",
+  displayCurrencyLabel:"💱 Preise anzeigen in:",
+  currencyPaymentNotice:"💳 Die obigen Preise sind unverbindlich. Die Zahlung des Abonnements erfolgt stets in FCFA, über Kkiapay (Mobile Money oder Visa/Mastercard).",
+  billingCountryLabel:"🌍 Rechnungsland (für die geltende MwSt.):",
+  vatIncludedNote:"Örtliche MwSt. gemäß Ihrem Rechnungsland inbegriffen. Der genaue Betrag (netto + MwSt.) wird kurz vor der Zahlung berechnet.",
+  vatCalcError:"Die MwSt. kann derzeit nicht berechnet werden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+  stayOnPageNotice:"⚠️ Wichtig: Bleiben Sie nach der Zahlung auf dieser Seite, bis die Meldung „Zahlung bestätigt!\u201c erscheint. Wenn Sie die App vorher schließen, wird Ihr Zugang möglicherweise nicht aktiviert, selbst wenn die Zahlung abgebucht wurde.",
+  lblLogo:"Logo (jpg/png/webp)",
+  lblImages:"Bilder (jpg/png/webp, max. 2 MB je Bild, max. 10 Bilder)",
+  chooseFile:"Datei auswählen", chooseFiles:"Dateien auswählen", noFile:"Keine Datei ausgewählt",
+  btnAdd:"Hinzufügen", adminLink:"Pro-Zugang",
+  tagBackup:"Sicherung", backupTitle:"Sicherung & Wiederherstellung",
+  backupText:"Wechseln Sie das Telefon, ohne etwas zu verlieren: Ihre veröffentlichten Geschäfte, Ihr Abonnementstatus und Ihre Einstellungen.",
+  downloadBackup:"⬇️ Eine Sicherung herunterladen",
+  backupHint:"Senden Sie diese Datei an Ihr neues Telefon (WhatsApp, E-Mail, Bluetooth oder Drive), öffnen Sie dann Etwas ADS und nutzen Sie unten „Wiederherstellen\u201c.",
+  lblRestoreFile:"Sicherungsdatei", restoreBtn:"⬆️ Diese Sicherung wiederherstellen",
+  tagFeedback:"Ihre Meinung", feedbackTitle:"Ein Vorschlag, ein Problem?", fbPh:"Schreiben Sie uns Ihre Vorschläge, um uns zu helfen, Etwas ADS zu verbessern.", fbSend:"Senden",
+  navGuide:"Bedienungsanleitung", navPolicy:"Nutzungsrichtlinie", navAbout:"Über uns",
+  navMentions:"Impressum", navCgu:"AGB",
+  storeBtn:"🛒 EMPIRE CODE",
+  partnershipText:"Eine Idee für ein maßgeschneidertes Tool, das offline, ohne Server und ohne Datenbank funktioniert, für Ihr Geschäft und Ihre Privatsphäre? Schreiben Sie uns.",
+  footerTag:"Ihr Geschäft, von allen gesehen.", poweredBy:"Bereitgestellt von EMPIRE DONKO",
+  payBtn:"Bezahlen", installMsg:"Installieren Sie Etwas ADS auf Ihrem Startbildschirm.", installBtn:"Installieren",
+  allCategories:"Alle Kategorien", featured:"Empfohlen",
+  visit:"Besuchen", share:"Teilen",
+  navHome:"Startseite", navCategories:"Kategorien", navSearch:"Suche", navPro:"Pro",
+  accessActive:"✅ Zugang aktiv", daysLeft:"Tag(e) verbleibend, bis zum", lifetimeAccess:"lebenslanger Zugang",
+  freePostsLeft:"kostenlose Veröffentlichung(en) übrig",
+  lockedMsg:"🔒 Wählen Sie oben ein Abonnement, um Ihr Geschäft zu veröffentlichen, oder nutzen Sie Ihre kostenlosen Veröffentlichungen.",
+  seeTarifs:"Preise ansehen",
+  errFields:"Bitte füllen Sie Name, Kategorie und Beschreibung aus.",
+  errLink:"Der Link muss mit http:// oder https:// beginnen",
+  errImgSize:"Ein Bild überschreitet 2 MB.",
+  errImgCount:"Maximal 10 Bilder.",
+  linkHint:"Beliebiger Link: Webseite, direkter Zahlungslink, Produktseite, WhatsApp, Facebook, Instagram usw.",
+  lblPricePromo:"Aktionspreis (optional — wenn ausgefüllt, wird der normale Preis daneben durchgestrichen angezeigt)",
+  lblHidePrice:"Preis nicht anzeigen",
+  lblCollectAddress:"📦 Lieferadressen erfassen (physische Produkte)",
+  collectAddressHint:"Der Kunde kann Ihnen seine Lieferdaten direkt per WhatsApp über die Produktseite senden.",
+  lblHideFromShop:"🔒 Diese Anzeige aus der öffentlichen Liste ausblenden (nur über direkten Link zugänglich)",
+  lblSlug:"Benutzerdefinierte URL (optional)",
+  phSlug:"beispiel-mein-produkt",
+  lblFaq:"Häufig gestellte Fragen (optional, bis zu 5)",
+  lblSeoKeywords:"Schlüsselwörter (optional, maximal 20)",
+  btnSuggestKeywords:"🪄 Vorschlagen",
+  errMaxTotal:"Sie haben die Gesamtgrenze von 300 Veröffentlichungen erreicht. Löschen Sie eine, bevor Sie eine neue hinzufügen.",
+  errMaxShops:"Sie haben bereits 3 verschiedene Geschäfte (Höchstgrenze). Verwenden Sie einen bereits registrierten Geschäftsnamen oder löschen Sie eines.",
+  errMaxPerShop:"Dieses Geschäft hat sein Limit von 100 Veröffentlichungen erreicht. Löschen Sie alte Anzeigen, bevor Sie neue hinzufügen.",
+  errExpired:"Ihr Zugang ist abgelaufen. Wählen Sie ein Abonnement, um zu veröffentlichen — die 1€-Testphase schaltet 30 Tage vollen Zugang frei.",
+  errRate:"Bitte warten Sie einen Moment, bevor Sie erneut veröffentlichen.",
+  okAdded:"Ihre Anzeige wurde veröffentlicht ✅ Teilen Sie sie:",
+  publishing:"Veröffentlichung läuft…",
+  connErr:"Ein Fehler ist aufgetreten. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+  queuedOffline:"📤 Derzeit keine Verbindung: Ihre Veröffentlichung wurde gespeichert und wird automatisch gesendet, sobald Sie wieder online sind.",
+  pendingQueueLabel:"Veröffentlichung(en) wartet/warten auf Versand (offline)",
+  payConnErr:"Internetverbindung zum Bezahlen erforderlich. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+  payConfirmed:"Zahlung bestätigt! Sie können Ihr Geschäft jetzt veröffentlichen.",
+  payNotConfirmed:"Die Zahlung wurde nicht bestätigt. Versuchen Sie es erneut oder kontaktieren Sie Ihren Mobile-Money-Anbieter.",
+  payVerifyUnavailable:"⚠️ Ihre Zahlung wurde möglicherweise erfolgreich durchgeführt, konnte aber derzeit nicht automatisch bestätigt werden. Kontaktieren Sie uns auf WhatsApp mit einem Zahlungsnachweis, wir aktivieren Ihren Zugang schnellstmöglich manuell.",
+  boostNoListing:"Erstellen Sie zuerst Ihr Geschäft, bevor Sie es boosten.",
+  boostSelectLabel:"Welches Geschäft möchten Sie boosten?",
+  boostDone:"Boost aktiviert ✅ Ihr Geschäft ist jetzt für 31 Tage hervorgehoben.",
+  deleteBtn:"Löschen", confirmDelete:"Diese Anzeige endgültig löschen?",
+  renewDone:"Ihre alten Anzeigen wurden mit Ihrem neuen Plan automatisch reaktiviert ✅",
+  backupOk:"Sicherung wiederhergestellt ✅", backupErr:"Ungültige Sicherungsdatei.",
+  installIOS:"Auf dem iPhone: Tippen Sie auf Teilen 📤 und dann auf „Zum Home-Bildschirm\u201c.",
+  noResults:"Noch keine Geschäfte vorhanden. Seien Sie der Erste, der veröffentlicht!",
+  trustSecurePay:"Sichere Zahlung per Mobile Money & Karte", trustWorldwide:"Verkäufer weltweit", trustDirect:"Direkter Kontakt zum Verkäufer",
+  distanceLabel:"📍 In meiner Nähe:", distanceCountry:"Ganzes Land", distanceWorld:"Weltweit",
+  useMyLocation:"Aktivieren", useMyLocationOn:"Aktiviert ✓", geoAsking:"Standortsuche...",
+  geoRefusedFilter:"Standort nicht verfügbar — weltweiter Katalog wird angezeigt.",
+  offlineNote:"Offline-Ansicht — letzte verfügbare Aktualisierung"
+};
+
 
 const LEGAL = { fr:{}, en:{} };
 
@@ -1552,7 +1699,9 @@ function _detectDefaultLang(){
   const saved = localStorage.getItem('etwas_ads_lang');
   if(saved) return saved;
   const nav = (navigator.language || (navigator.languages && navigator.languages[0]) || 'fr').toLowerCase();
-  return nav.indexOf('fr') === 0 ? 'fr' : 'en';
+  if(nav.indexOf('fr') === 0) return 'fr';
+  if(nav.indexOf('de') === 0) return 'de';
+  return 'en';
 }
 
 let state = {
@@ -1642,7 +1791,7 @@ function applyI18n(){
   document.documentElement.lang = state.lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{ el.innerHTML = t(el.getAttribute('data-i18n')); });
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{ el.placeholder = t(el.getAttribute('data-i18n-ph')); });
-  document.getElementById('langToggle').textContent = state.lang === 'fr' ? 'EN' : 'FR';
+  document.getElementById('langToggle').textContent = state.lang.toUpperCase();
 
   // Ruban et texte animé en tout premier : même si un rendu plus bas plante à
   // cause d'une donnée inattendue, ces deux-là auront déjà changé de langue.
@@ -1667,7 +1816,8 @@ function applyI18n(){
   _safe(renderGallery);
 }
 document.getElementById('langToggle').addEventListener('click', ()=>{
-  state.lang = state.lang === 'fr' ? 'en' : 'fr';
+  const order = ['fr','en','de'];
+  state.lang = order[(order.indexOf(state.lang) + 1) % order.length];
   localStorage.setItem('etwas_ads_lang', state.lang);
   applyI18n();
   try{ if(window.parent && window.parent !== window) window.parent.postMessage({type:'etwas:lang-changed', lang:state.lang}, '*'); }catch(e){}
@@ -1700,13 +1850,33 @@ window.addEventListener('message', function(ev){
     localStorage.setItem('etwas_ads_theme', state.theme);
     applyTheme();
   }
-  if(msg.type === 'etwas:set-lang' && (msg.lang === 'fr' || msg.lang === 'en')){
+  if(msg.type === 'etwas:set-lang' && (msg.lang === 'fr' || msg.lang === 'en' || msg.lang === 'de')){
     state.lang = msg.lang;
     localStorage.setItem('etwas_ads_lang', state.lang);
     applyI18n();
   }
   if(msg.type === 'etwas:publish-product' && msg.product){
     prefillFromStockProduct(msg.product);
+  }
+  if(msg.type === 'etwas:premium-activated'){
+    // Confirmation venue de la page de paiement UNIQUE du shell — le
+    // paiement a déjà été vérifié par EtwasServer.js. Si un txnId KKiaPay
+    // est fourni, on redonne la main à Apps Script (confirmSubscriptionServerSide)
+    // pour qu'il fasse SA PROPRE vérification indépendante ET réactive les
+    // annonces suspendues — exactement comme le faisait l'ancien tunnel de
+    // paiement interne. Sans txnId (ex: payé en crypto via Plisio), on se
+    // contente d'accorder l'accès localement : les annonces déjà suspendues
+    // ne seront pas réactivées automatiquement dans ce cas précis — l'utilisateur
+    // peut nous écrire via la boîte à suggestions si besoin d'une réactivation manuelle.
+    const plan = PLANS.find(p => p.id === msg.planId) || { id: msg.planId, days: msg.days, weight: 0, priceNew: msg.priceNew, label: {fr: msg.planId, en: msg.planId, de: msg.planId} };
+    if(msg.txnId){
+      state.pendingVat = null; // pas de calcul TVA pour le tunnel unifié : expectedAmount = prix brut (voir confirmSubscriptionServerSide)
+      confirmSubscriptionServerSide(plan, msg.txnId);
+    } else {
+      setAccess(plan, null);
+      renderAccessState();
+      renderProAccessState();
+    }
   }
 });
 
@@ -1758,6 +1928,8 @@ function prefillFromStockProduct(p){
     const msgEl = document.getElementById('formMsg');
     if(msgEl) msgEl.textContent = (state.lang === 'fr'
       ? '✅ Produit importé depuis votre Stock Etwas Caisse — vérifiez puis choisissez votre boutique.'
+      : state.lang === 'de'
+      ? '✅ Produkt aus Ihrem Etwas Kasse-Lager importiert — prüfen Sie es und wählen Sie dann Ihr Geschäft.'
       : '✅ Product imported from your Etwas Caisse Stock — review it, then choose your shop.');
   }catch(e){ /* si un champ manque (formulaire pas encore rendu), on ignore proprement */ }
 }
@@ -1912,6 +2084,7 @@ function displayPrice(xofAmount){ return convertFromXOF(xofAmount, state.display
 
 function renderPlans(){
   const grid = document.getElementById('plansGrid');
+  if(!grid) return; // grille de plans retirée : le choix de plan se fait désormais dans la page de paiement unique du shell
   grid.innerHTML = PLANS.map(p => {
     const monthsEq = p.days>=36500 ? null : Math.max(1, Math.round(p.days/30));
     const perMonth = monthsEq ? displayPrice(Math.round(p.priceNew/monthsEq)) + (state.lang==='fr'?'/mois':'/mo') : '';
@@ -2040,7 +2213,7 @@ function renderAccessState(){
   } else if(access){
     const expiry = new Date(access.expiry);
     const daysLeft = access.plan==='avie' ? null : Math.max(0, Math.ceil((expiry-new Date())/86400000));
-    stateEl.innerHTML = `<div class="access-banner"><strong>${t('accessActive')}</strong> — ${daysLeft===null ? t('lifetimeAccess') : daysLeft+' '+t('daysLeft')+' '+expiry.toLocaleDateString(state.lang==='fr'?'fr-FR':'en-US')}</div>`;
+    stateEl.innerHTML = `<div class="access-banner"><strong>${t('accessActive')}</strong> — ${daysLeft===null ? t('lifetimeAccess') : daysLeft+' '+t('daysLeft')+' '+expiry.toLocaleDateString((state.lang==='fr'?'fr-FR':state.lang==='de'?'de-DE':'en-US'))}</div>`;
     formCard.style.display = 'block';
   } else {
     stateEl.innerHTML = `<div class="locked-banner">${t('lockedMsg')}<br><button class="btn btn-navy" id="goPricingBtn">${t('seeTarifs')}</button></div>`;
@@ -2053,24 +2226,28 @@ function renderAccessState(){
 /* ================== KKIAPAY PAYMENT ================== */
 let paymentContext = 'subscription';
 
-document.getElementById('payBtn').addEventListener('click', async ()=>{
-  paymentContext = 'subscription';
-  const payBtn = document.getElementById('payBtn');
-  payBtn.disabled = true;
-  try{
-    const vatResult = await postToBackend({ action:'calculateVat', plan: state.selectedPlan.id, country: state.billingCountry || '' });
-    if(!vatResult.ok){
-      alert(t('vatCalcError'));
-      return;
-    }
-    state.pendingVat = vatResult.data; // { prixHT, tauxTVA, montantTVA, totalTTC, pays }
-    launchPayment(vatResult.data.totalTTC, 'Etwas ADS - ' + state.selectedPlan.label.fr);
-  }catch(err){
-    alert(t('vatCalcError'));
-  }finally{
-    payBtn.disabled = false;
-  }
+document.getElementById('payBtn').addEventListener('click', ()=>{
+  requestUnifiedPayment();
 });
+document.getElementById('goUnifiedPayBtn').addEventListener('click', ()=>{
+  requestUnifiedPayment();
+});
+function requestUnifiedPayment(){
+  // Paiement d'abonnement désormais unique pour tout Etwas (Pro + ADS) :
+  // on demande au shell d'ouvrir SA page de paiement plutôt que de calculer
+  // la TVA et ouvrir KKiaPay ici. Le boost d'annonce individuelle, lui,
+  // reste géré directement ici (voir button[data-boost] plus bas) — ce
+  // n'est pas un changement d'abonnement, juste une mise en avant ponctuelle.
+  try{
+    if(window.parent && window.parent !== window){
+      window.parent.postMessage({type:'etwas:request-payment'}, '*');
+    } else {
+      alert(state.lang === 'fr'
+        ? "Cette action nécessite le shell Etwas complet (index.html)."
+        : "This action requires the full Etwas shell (index.html).");
+    }
+  }catch(err){}
+}
 
 function launchPayment(amount, description){
   if(typeof openKkiapayWidget === 'undefined'){
@@ -2087,14 +2264,12 @@ function launchPayment(amount, description){
 }
 
 // Les écouteurs Kkiapay sont globaux : on les enregistre UNE SEULE FOIS (pas à
-// chaque paiement), et on s'appuie sur "paymentContext" pour savoir quelle
-// action vient d'être confirmée (abonnement ou boost).
+// chaque paiement). Ne concerne plus que le boost d'annonce individuelle —
+// l'abonnement passe désormais par la page de paiement unique du shell.
 if(typeof addSuccessListener !== 'undefined'){
   addSuccessListener(function(response){
     const txnId = response && response.transactionId;
-    if(paymentContext === 'subscription'){
-      confirmSubscriptionServerSide(state.selectedPlan, txnId);
-    } else if(paymentContext === 'boost'){
+    if(paymentContext === 'boost'){
       finalizeBoost(txnId);
     }
   });
@@ -2264,7 +2439,7 @@ function renderMyListingsList(){
     return `
     <div class="my-shop-card" id="shopcard-${b.id}" style="flex-direction:column;align-items:stretch;">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div><div class="name">🏪 ${escapeHtml(b.name)}</div><div class="date">${new Date(b.date).toLocaleDateString(state.lang==='fr'?'fr-FR':'en-US')} — ${mine.length}/${CONFIG.MAX_LISTINGS_PER_SHOP} ${t('resultsCount')}</div></div>
+        <div><div class="name">🏪 ${escapeHtml(b.name)}</div><div class="date">${new Date(b.date).toLocaleDateString((state.lang==='fr'?'fr-FR':state.lang==='de'?'de-DE':'en-US'))} — ${mine.length}/${CONFIG.MAX_LISTINGS_PER_SHOP} ${t('resultsCount')}</div></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <button class="btn btn-outline" data-editshop="${b.id}">✏️ ${t('editBtn')}</button>
           <button class="btn btn-brick" data-boost="${b.id}" data-name="${escapeHtml(b.name)}">🚀 ${t('boostBtn')}</button>
@@ -2364,7 +2539,7 @@ function renderHistory(){
   el.innerHTML = list.map(h => `
     <div class="history-item">
       <span>${h.type==='boost' ? '🚀 '+t('histBoost') : '⭐ '+t('histSub')} — ${escapeHtml(h.label)}</span>
-      <span>${fcfa(h.price)} · ${new Date(h.date).toLocaleDateString(state.lang==='fr'?'fr-FR':'en-US')}</span>
+      <span>${fcfa(h.price)} · ${new Date(h.date).toLocaleDateString((state.lang==='fr'?'fr-FR':state.lang==='de'?'de-DE':'en-US'))}</span>
     </div>`).join('');
 }
 
@@ -2378,7 +2553,7 @@ function renderProAccessState(){
   } else if(access){
     const expiry = new Date(access.expiry);
     const daysLeft = access.plan==='avie' ? null : Math.max(0, Math.ceil((expiry-new Date())/86400000));
-    el.innerHTML = `<div class="access-banner"><strong>${t('accessActive')}</strong> — ${daysLeft===null ? t('lifetimeAccess') : daysLeft+' '+t('daysLeft')+' '+expiry.toLocaleDateString(state.lang==='fr'?'fr-FR':'en-US')}</div>`;
+    el.innerHTML = `<div class="access-banner"><strong>${t('accessActive')}</strong> — ${daysLeft===null ? t('lifetimeAccess') : daysLeft+' '+t('daysLeft')+' '+expiry.toLocaleDateString((state.lang==='fr'?'fr-FR':state.lang==='de'?'de-DE':'en-US'))}</div>`;
   } else {
     el.innerHTML = `<div class="locked-banner">${t('noAccess')}</div>`;
   }
@@ -3045,6 +3220,23 @@ function filteredSortedListings(){
 // Le prix "normal" et le prix "promotionnel" ne s'excluent plus l'un l'autre :
 // s'il y a un prix promo, les DEUX s'affichent (normal barré + promo en avant),
 // pour bien montrer aux visiteurs que c'est une vraie promotion et son prix de départ.
+/* ============================================================
+   ACHAT EXPRESS 1-CLIC — génère un message WhatsApp structuré et
+   préformaté (ID de l'annonce + prix déjà converti dans la devise
+   d'affichage choisie par l'acheteur), pour commander en un tap sans
+   remplir de formulaire. Le vendeur reçoit un message clair et lisible,
+   qu'il peut compléter par échange direct pour l'adresse de livraison.
+   ============================================================ */
+function sendExpressBuyRequest(item){
+  const price = item.PrixPromo ? displayPrice(Number(item.PrixPromo)) : (item.Prix ? displayPrice(Number(item.Prix)) : '');
+  const text = state.lang === 'fr'
+    ? `⚡ Achat Express — Etwas ADS\nAnnonce : ${item.BoutiqueNom} (réf. ${item.ID})\nPrix : ${price}\n\nBonjour, je souhaite acheter ce produit/service. Merci de me confirmer la disponibilité et les modalités de livraison.`
+    : state.lang === 'de'
+    ? `⚡ Express-Kauf — Etwas ADS\nAnzeige: ${item.BoutiqueNom} (Ref. ${item.ID})\nPreis: ${price}\n\nHallo, ich möchte dieses Produkt/diese Dienstleistung kaufen. Bitte bestätigen Sie die Verfügbarkeit und die Lieferbedingungen.`
+    : `⚡ Express Purchase — Etwas ADS\nListing: ${item.BoutiqueNom} (ref. ${item.ID})\nPrice: ${price}\n\nHello, I'd like to buy this product/service. Please confirm availability and delivery details.`;
+  window.open('https://wa.me/' + String(item.Contact).replace(/[^0-9]/g,'') + '?text=' + encodeURIComponent(text), '_blank');
+}
+
 function priceHtml(item){
   if(item.PrixMode === 'masque' || (!item.Prix && !item.PrixPromo)) return '';
   const normal = item.Prix ? displayPrice(Number(item.Prix)) : '';
@@ -3193,6 +3385,7 @@ function openListingDetail(item){
           <div class="cat" style="margin-top:${images.length>1?'10px':'2px'};">${escapeHtml(catLabel(item.Categorie))}${item.Ville ? ' · '+escapeHtml(String(item.Ville)) : ''}${item.Pays ? ' · '+escapeHtml(countryLabel(item.Pays)) : ''}</div>
           <h2 style="margin-top:6px;">${escapeHtml(item.BoutiqueNom)}</h2>
           ${priceHtml(item)}
+          ${item.Contact && (item.Prix || item.PrixPromo) ? `<button class="btn btn-navy" id="expressBuyBtn" style="width:100%;margin:10px 0 2px;font-weight:700;">⚡ ${t('expressBuyBtn')}</button>` : ''}
           <div class="rich-desc">${autoLinkPhones(sanitizeRichText(item.Description||''))}</div>
           ${faqHtml}
           ${addressFormHtml}
@@ -3210,6 +3403,10 @@ function openListingDetail(item){
   document.getElementById('detailBackBtn').addEventListener('click', closeModal);
   document.getElementById('modalOverlay').addEventListener('click', (e)=>{ if(e.target.id==='modalOverlay') closeModal(); });
   document.getElementById('detailShareBtn').addEventListener('click', ()=> shareListing(item));
+  const expressBtn = document.getElementById('expressBuyBtn');
+  if(expressBtn){
+    expressBtn.addEventListener('click', ()=> sendExpressBuyRequest(item));
+  }
   document.querySelectorAll('[data-thumb]').forEach(th=>{
     th.addEventListener('click', ()=>{
       document.getElementById('detailMainImg').src = images[Number(th.dataset.thumb)];
@@ -3330,6 +3527,37 @@ document.getElementById('restoreBtn').addEventListener('click', ()=>{
 document.querySelectorAll('[data-modal]').forEach(btn=>{
   btn.addEventListener('click', ()=> openModal(btn.dataset.modal));
 });
+
+/* ============================================================
+   BOÎTE À SUGGESTIONS — formulaire interne, sans app tierce, sans
+   coordonnée affichée. Réutilise le canal existant vers l'Apps
+   Script (postToBackend), déjà en place pour toutes les autres
+   écritures de cette application — même file d'attente hors ligne.
+   ============================================================ */
+function openSuggestModal(){
+  document.getElementById('suggestOverlay').style.display = 'flex';
+  document.getElementById('suggestText').value = '';
+  document.getElementById('suggestMsg').textContent = '';
+  document.getElementById('suggestText').focus();
+}
+function closeSuggestModal(){
+  document.getElementById('suggestOverlay').style.display = 'none';
+}
+document.getElementById('footSuggestWaBtn').addEventListener('click', openSuggestModal);
+document.getElementById('footSuggestMailBtn').addEventListener('click', openSuggestModal);
+document.getElementById('suggestModalClose').addEventListener('click', closeSuggestModal);
+document.getElementById('suggestSendBtn').addEventListener('click', async ()=>{
+  const text = document.getElementById('suggestText').value.trim();
+  const msgEl = document.getElementById('suggestMsg');
+  if(!text){ msgEl.textContent = t('suggest_empty'); return; }
+  msgEl.textContent = t('suggest_sending');
+  const payload = { action:'submitFeedback', message: text, module:'marketplace' };
+  const result = await postToBackend(payload);
+  if(!result.ok) queueSubmission(payload); // hors ligne : jamais perdu, renvoyé automatiquement au retour du réseau
+  msgEl.textContent = t('suggest_thanks');
+  setTimeout(closeSuggestModal, 1200);
+});
+
 function openModal(key){
   const html = LEGAL[state.lang][key] || LEGAL.fr[key];
   document.getElementById('modalRoot').innerHTML = `
@@ -3448,12 +3676,15 @@ function isStandalone(){
 
 function updateInstallBanner(){
   const banner = document.getElementById('installBanner');
-  if(isStandalone()){
-    // Application déjà installée et lancée en mode autonome : le bouton n'a plus lieu d'être.
+  // Fusionné dans le shell Etwas (index.html) : il n'existe plus qu'UN
+  // SEUL bouton d'installation PWA pour toute l'application, géré par le
+  // shell. Ce bandeau ne s'affiche que si ce module est exceptionnellement
+  // ouvert seul, hors du shell (ex: test direct du fichier).
+  const runningInsideShell = (window.parent !== window);
+  if(runningInsideShell || isStandalone()){
     banner.classList.add('hidden');
     banner.classList.remove('attention');
   } else {
-    // Toujours visible dans le navigateur, pour permettre une (ré)installation à tout moment.
     banner.classList.remove('hidden');
     banner.classList.add('attention');
   }

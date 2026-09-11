@@ -6,7 +6,7 @@
    sa propre barre d'entête et sa barre d'onglets.
    ============================================================ */
 :root{
-  --etwas-navy:#0F1D33;
+  --etwas-navy:#082045;
   --etwas-navy-2:#16294a;
   --etwas-white:#FFFFFF;
   --etwas-line:rgba(255,255,255,0.12);
@@ -125,3 +125,112 @@ body{
 }
 @keyframes etwas-spin{ to{ transform:rotate(360deg); } }
 #etwasBoot.etwas-hidden{ opacity:0; pointer-events:none; }
+
+/* ============================================================
+   PAGE D'ACCUEIL DU SHELL (onglet "Accueil") — occupe le même
+   espace que les iframes (positionnement identique), contenu
+   scrollable. Palette strictement bleu marine officiel + blanc,
+   aucun dégradé — cohérent avec la purification visuelle du reste
+   de l'écosystème Etwas.
+   ============================================================ */
+#etwasHome{
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  overflow-y:auto; background:#FFFFFF; -webkit-overflow-scrolling:touch;
+}
+#etwasHome.etwas-hidden{ visibility:hidden; pointer-events:none; }
+.home-inner{
+  max-width:420px; margin:0 auto;
+  padding:36px 24px 40px;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.home-logo{ width:auto; height:120px; margin-bottom:8px; }
+.home-slogan{
+  font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--etwas-navy); opacity:.55; margin:4px 0 26px;
+}
+
+.home-install-btn{
+  width:100%; padding:13px; border-radius:26px; border:none;
+  background:var(--etwas-navy); color:#fff; font-size:14.5px; font-weight:700;
+  cursor:pointer; margin-bottom:30px; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+}
+.home-install-btn:active{ opacity:.85; }
+
+.home-section{
+  width:100%; padding:20px; border:1.5px solid rgba(15,29,51,0.12); border-radius:16px; margin-bottom:20px;
+}
+.home-section-title{ font-size:14.5px; font-weight:800; color:var(--etwas-navy); margin-bottom:6px; }
+.home-section-text{ font-size:13px; color:#4C5C77; line-height:1.55; margin:0 0 16px; }
+.home-contact-btns{ display:flex; gap:10px; justify-content:center; }
+.home-contact-btn{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:9px 16px; border-radius:22px; border:1.5px solid rgba(15,29,51,0.15);
+  color:var(--etwas-navy); text-decoration:none; font-size:13px; font-weight:600;
+  background:#fff;
+}
+
+.home-store-btn{
+  width:100%; padding:13px; border-radius:26px; border:1.5px solid var(--etwas-navy);
+  color:var(--etwas-navy); text-decoration:none; font-size:14px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:26px;
+}
+.home-store-dot{ width:7px; height:7px; border-radius:50%; background:var(--etwas-navy); }
+
+.home-powered{ font-size:11.5px; color:#8b93a3; margin:0; }
+.home-powered strong{ color:var(--etwas-navy); }
+
+/* ============================================================
+   PAGE DE PAIEMENT UNIQUE — même traitement de positionnement que
+   les iframes et l'Accueil (occupe tout #etwasModules, scrollable).
+   ============================================================ */
+#etwasPayment{
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  overflow-y:auto; background:#FFFFFF; -webkit-overflow-scrolling:touch;
+}
+#etwasPayment.etwas-hidden{ visibility:hidden; pointer-events:none; }
+.pay-inner{ max-width:460px; margin:0 auto; padding:18px 18px 40px; }
+.pay-back-btn{
+  background:none; border:none; color:var(--etwas-navy); font-size:14px; font-weight:600;
+  padding:8px 0; cursor:pointer; display:inline-flex; align-items:center; gap:4px;
+}
+.pay-inner h1{ font-size:20px; font-weight:800; color:var(--etwas-navy); margin:8px 0 4px; }
+.pay-sub{ font-size:13px; color:#4C5C77; line-height:1.5; margin:0 0 18px; }
+
+.pay-status{
+  padding:12px 14px; border-radius:12px; background:#EAF4EE; color:#1B5E33;
+  font-size:13px; font-weight:600; margin-bottom:16px;
+}
+.pay-status.locked{ background:#FBEAEA; color:#8C2E2E; }
+
+.pay-plans{
+  display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;
+}
+.pay-plan{
+  border:1.5px solid rgba(8,32,69,0.14); border-radius:14px; padding:14px 12px;
+  cursor:pointer; position:relative; background:#fff;
+}
+.pay-plan.selected{ border-color:var(--etwas-navy); box-shadow:0 0 0 2px rgba(8,32,69,0.12); }
+.pay-plan .pp-badge{
+  position:absolute; top:-9px; left:10px; background:var(--etwas-navy); color:#fff;
+  font-size:9px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+  padding:3px 8px; border-radius:20px;
+}
+.pay-plan .pp-label{ font-size:12.5px; font-weight:700; color:var(--etwas-navy); margin-bottom:4px; }
+.pay-plan .pp-old{ font-size:11px; color:#9aa4b5; text-decoration:line-through; display:block; }
+.pay-plan .pp-new{ font-size:17px; font-weight:800; color:var(--etwas-navy); display:block; }
+.pay-plan .pp-days{ font-size:11px; color:#6b7488; margin-top:3px; }
+
+.pay-gateways{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.pay-gateway-btn{
+  border:1.5px solid var(--etwas-navy); background:var(--etwas-navy); color:#fff;
+  border-radius:12px; padding:12px 10px; cursor:pointer; text-align:left;
+  display:flex; flex-direction:column; gap:2px;
+}
+.pay-gateway-btn.disabled{
+  background:#F3F5F8; border-color:rgba(8,32,69,0.12); color:#9aa4b5; cursor:not-allowed;
+}
+.pay-gateway-name{ font-size:13.5px; font-weight:800; }
+.pay-gateway-note{ font-size:10.5px; opacity:.85; }
+
+.pay-msg{ min-height:20px; font-size:13px; font-weight:600; text-align:center; margin-bottom:10px; }
+.pay-hint{ font-size:11.5px; color:#7a8494; line-height:1.5; text-align:center; }

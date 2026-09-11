@@ -210,13 +210,35 @@
     window.addEventListener("online", () => { refreshStatus(); });
   }
 
+  /* --------------------------------------------------------------------
+     Boîte à suggestions interne — envoie un message libre au serveur,
+     sans jamais exposer de coordonnée de contact au client. Retourne
+     false (jamais d'exception) en cas d'échec, pour que l'appelant
+     puisse mettre le message en file d'attente locale proprement.
+     -------------------------------------------------------------------- */
+  async function sendFeedback(message){
+    if (!isConfigured()) return false;
+    try {
+      const res = await fetchWithTimeout(API_BASE + "/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ etwId: getEtwId(), message, module: "kalcul" })
+      });
+      return res.ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
   global.EtwasCloud = {
     isConfigured,
     ensureAccount,
     refreshStatus,
     computeIsPremium,
     pollForActivation,
+    sendFeedback,
     getEtwId,
+    getApiBase: () => API_BASE,
     getCompanyName: () => localStorage.getItem(KEYS.companyName) || null
   };
 

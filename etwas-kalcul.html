@@ -26,7 +26,7 @@
 <meta name="twitter:image" content="icon-192.png">
 
 <!-- PWA : installabilité + icônes (Chrome/Android, Safari/iOS) -->
-<meta name="theme-color" content="#0F1D33">
+<meta name="theme-color" content="#082045">
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -49,9 +49,9 @@
 :root{
   --paper:#FFFFFF;
   --paper-2:#F3F6FB;
-  --ink:#0F1D33;
+  --ink:#082045;
   --ink-soft:#4C5C77;
-  --indigo:#0F1D33;
+  --indigo:#082045;
   --indigo-deep:#081222;
   --ochre:#2F6FE4;
   --ochre-soft:#E9F0FD;
@@ -161,7 +161,7 @@ input:focus, textarea:focus, select:focus, button:focus-visible{
 }
 .btn-primary{background:var(--indigo); color:#fff;}
 .btn-primary:hover{background:var(--indigo-deep);}
-.btn-ochre{background:var(--ochre); color:#0F1D33;}
+.btn-ochre{background:var(--ochre); color:#082045;}
 .btn-ochre:hover{filter:brightness(1.05);}
 .btn-ghost{background:transparent; border-color:var(--line); color:var(--ink);}
 .btn-ghost:hover{background:var(--paper-2);}
@@ -200,7 +200,7 @@ table.items td.amount{text-align:right; font-size:13.5px; white-space:nowrap;}
 .badge{display:inline-block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; padding:3px 8px; border-radius:99px;}
 .badge.facture{background:#DCE7FB; color:var(--success);}
 .badge.devis{background:#DCE7FB; color:#2F6FE4;}
-.badge.pro{background:var(--ochre-soft); color:#0F1D33;}
+.badge.pro{background:var(--ochre-soft); color:#082045;}
 .badge.free{background:var(--paper-2); color:var(--ink-soft);}
 
 .hist-item{display:flex; justify-content:space-between; align-items:center; padding:12px 4px; border-bottom:1px solid var(--line); cursor:pointer;}
@@ -252,7 +252,7 @@ table.items td.amount{text-align:right; font-size:13.5px; white-space:nowrap;}
 .stock-item .prices b{color:var(--ink); font-family:var(--mono);}
 
 .paywall{border:1px solid var(--ochre); background:#EAF1FE;}
-.paywall h2{color:#0F1D33;}
+.paywall h2{color:#082045;}
 .result-box{background:var(--paper-2); border-radius:8px; padding:14px; margin-top:12px;}
 .result-box .big{font-size:24px; font-weight:700; color:var(--indigo-deep);}
 .result-box .small{font-size:12px; color:var(--ink-soft); margin-top:2px;}
@@ -309,13 +309,13 @@ nav.bottom button.active{color:#fff; background:rgba(255,255,255,.08);}
 .store-cta-btn{
   display:inline-flex; align-items:center; gap:8px;
   margin-top:16px; padding:12px 22px;
-  border-radius:99px; border:2px solid #0F1D33;
+  border-radius:99px; border:2px solid #082045;
   background:var(--ochre-soft);
-  color:#0F1D33; font-weight:800; font-size:12.5px; letter-spacing:.3px;
+  color:#082045; font-weight:800; font-size:12.5px; letter-spacing:.3px;
   text-decoration:none; white-space:nowrap;
   animation:store-cta-pulse 2.2s ease-in-out infinite;
 }
-.store-cta-dot{width:8px; height:8px; border-radius:50%; background:#0F1D33; flex-shrink:0;}
+.store-cta-dot{width:8px; height:8px; border-radius:50%; background:#082045; flex-shrink:0;}
 @keyframes store-cta-pulse{
   0%, 100%{ box-shadow:0 0 0 0 rgba(192,138,40,.55); transform:scale(1); }
   50%{ box-shadow:0 0 0 10px rgba(192,138,40,0); transform:scale(1.035); }
@@ -325,6 +325,41 @@ nav.bottom button.active{color:#fff; background:rgba(255,255,255,.08);}
 .legal-overlay{
   position:fixed; top:0; right:0; bottom:0; left:0; inset:0; background:rgba(18,14,8,.6); z-index:100;
   display:flex; align-items:flex-end; justify-content:center; padding:0;
+}
+
+/* modale scan code-barre (Caméra HTML5) */
+.scan-overlay{
+  position:fixed; inset:0; background:#000; z-index:200;
+  display:flex; flex-direction:column;
+}
+.scan-overlay video{
+  flex:1; width:100%; object-fit:cover; background:#000;
+}
+.scan-overlay .scan-frame{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:78%; max-width:340px; aspect-ratio:16/9;
+  border:2.5px solid var(--ochre); border-radius:14px;
+  box-shadow:0 0 0 2000px rgba(0,0,0,0.35);
+  pointer-events:none;
+}
+.scan-overlay .scan-topbar{
+  position:absolute; top:0; left:0; right:0; padding:14px 16px;
+  display:flex; justify-content:space-between; align-items:center;
+  background:linear-gradient(rgba(0,0,0,.55), transparent);
+  z-index:2;
+}
+.scan-overlay .scan-topbar span{ color:#fff; font-weight:700; font-size:14px; }
+.scan-overlay .scan-close{
+  background:rgba(255,255,255,0.15); border:none; color:#fff;
+  width:34px; height:34px; border-radius:50%; font-size:18px; cursor:pointer;
+}
+.scan-overlay .scan-hint{
+  position:absolute; bottom:24px; left:0; right:0; text-align:center;
+  color:#fff; font-size:13px; padding:0 24px; z-index:2;
+}
+.scan-overlay .scan-fallback{
+  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:14px; color:#fff; padding:24px; text-align:center;
 }
 .legal-modal{
   background:var(--white); width:100%; max-width:640px; max-height:86vh;
@@ -402,7 +437,7 @@ nav.bottom button.active{color:#fff; background:rgba(255,255,255,.08);}
 .plan-label{font-family:var(--display);}
 .plan-top{display:flex; justify-content:space-between; align-items:center; gap:8px;}
 .plan-label{font-weight:700; font-size:13.5px;}
-.plan-badge{font-size:9.5px; text-transform:uppercase; letter-spacing:.4px; background:var(--ochre); color:#0F1D33; padding:2px 7px; border-radius:99px; font-weight:700; white-space:nowrap;}
+.plan-badge{font-size:9.5px; text-transform:uppercase; letter-spacing:.4px; background:var(--ochre); color:#082045; padding:2px 7px; border-radius:99px; font-weight:700; white-space:nowrap;}
 .plan-badge-pulse{animation:plan-badge-pulse 1.6s ease-in-out infinite;}
 @keyframes plan-badge-pulse{
   0%, 100%{ box-shadow:0 0 0 0 rgba(192,138,40,.6); transform:scale(1); }
@@ -504,11 +539,7 @@ iframe[src*="kkiapay"],
 <header class="top">
   <div class="top-row">
     <div class="brand">
-      <svg class="brand-logo" viewBox="0 0 100 130" width="34" height="44" role="img" aria-label="Etwas">
-        <rect x="0" y="0" width="100" height="100" rx="18" fill="#0F1D33"/>
-        <text x="50" y="76" font-family="-apple-system, Arial, sans-serif" font-size="62" font-weight="800" fill="#FFFFFF" text-anchor="middle">E</text>
-        <text x="50" y="123" font-family="-apple-system, Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="1.5" fill="#F3F6FB" text-anchor="middle">ETWAS</text>
-      </svg>
+      <img class="brand-logo" src="etwas-pro-logo.png" alt="Etwas Pro" height="30">
       <span class="tag" id="brandTag">Caisse · Facture · Devis</span>
       <span class="tag" data-i18n="slogan" style="font-size:9px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;">Possédez votre commerce.</span>
     </div>
@@ -531,8 +562,12 @@ iframe[src*="kkiapay"],
     <div class="card">
       <h2 data-i18n="caisse_t">Caisse</h2>
       <div class="sub" data-i18n="caisse_s">Vente rapide au comptoir, à partir de votre stock.</div>
-      <input type="text" id="posSearch" data-i18n-placeholder="search_placeholder" placeholder="Rechercher un produit...">
-      <div id="posProductList" class="pos-product-list"></div>
+      <div class="pos-search-row" style="display:flex; gap:8px; align-items:center;">
+        <input type="text" id="posSearch" data-i18n-placeholder="search_placeholder" placeholder="Rechercher un produit..." style="flex:1;">
+        <button type="button" class="btn btn-ochre" id="scanBarcodeBtn" style="white-space:nowrap; padding:10px 14px;" title="Scanner un code-barre">
+          📷
+        </button>
+      </div>      <div id="posProductList" class="pos-product-list"></div>
       <div class="empty" id="posEmptyHint" style="display:none;">
         <div class="glyph">📦</div>
         <span data-i18n="no_products_hint">Aucun produit dans votre stock. Ajoutez-en dans l'onglet Stock pour commencer à vendre.</span>
@@ -887,41 +922,22 @@ iframe[src*="kkiapay"],
       <div class="sub" id="proStatusLine" data-i18n="pro_loading">Chargement du statut...</div>
       <div id="proDetails"></div>
 
-      <div class="plans" id="plansList"></div>
-
+      <p class="hint" data-i18n="pro_unified_hint">Un seul paiement débloque Etwas Pro (Caisse) ET Etwas ADS (Marketplace) — la page de paiement est désormais commune aux deux.</p>
       <div class="btn-row">
-        <button id="pay-btn" type="button" class="btn btn-ochre btn-block"><span data-i18n="pay_btn">Payer et débloquer —</span> <span id="payAmountLabel"></span></button>
+        <button id="pay-btn" type="button" class="btn btn-ochre btn-block" data-i18n="pro_unified_btn">Voir les offres et payer</button>
       </div>
-      <p class="hint" data-i18n="pay_hint">Paiement unique via KKiaPay — Mobile Money ou carte bancaire (Visa/Mastercard), selon ce qui est disponible dans votre pays. Aucun prélèvement automatique : aucune carte ni numéro n'est enregistré chez nous, tout est géré par KKiaPay.</p>
       <div class="notice" data-i18n="pay_notice">Le déverrouillage est enregistré sur cet appareil. Pour le retrouver sur un nouveau téléphone, utilisez Réglages → Sauvegarde &amp; restauration — aucun contact nécessaire.</div>
     </div>
   </section>
 
-  <!-- ===== PIED DE PAGE : PARTENARIAT / OUTILS SUR MESURE ===== -->
+  <!-- ===== PIED DE PAGE ===== -->
+  <!-- Le bloc "Partenariat & outils personnalisés" (WhatsApp/Email/EMPIRE CODE)
+       vit désormais UNE SEULE FOIS sur la page d'accueil du shell Etwas
+       (index.html), plutôt que dupliqué dans chaque module. Les deux petits
+       boutons flottants (#suggestFab) restent ici : ce sont des boîtes à
+       suggestions internes distinctes, qui n'ouvrent aucune app tierce et
+       n'affichent aucune coordonnée (voir plus bas). -->
   <footer class="site-footer">
-    <div class="foot-title" data-i18n="footer_partner_t">Partenariat &amp; outils personnalisés</div>
-    <div class="foot-sub" data-i18n="footer_partner_s">Une idée d'outil sur mesure pour votre activité ? Écrivez-nous.</div>
-    <div class="foot-links">
-      <a id="footWaLink" class="foot-btn wa" href="https://wa.me/2290196809106?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20Etwas." target="_blank" rel="noopener noreferrer" aria-label="Contacter sur WhatsApp">
-        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-          <circle cx="12" cy="12" r="12" fill="#25D366"/>
-          <path fill="#fff" d="M12 6.2a5.8 5.8 0 0 0-5 8.7l-.8 2.9 3-.8a5.8 5.8 0 1 0 2.8-10.8Zm0 1.3a4.5 4.5 0 0 1 3.9 6.8 4.5 4.5 0 0 1-7 1.1l-.2-.1-1.7.4.5-1.6-.1-.2a4.5 4.5 0 0 1 4.6-6.4Zm-2.1 2.3c-.1 0-.3 0-.4.2-.2.2-.6.6-.6 1.4s.6 1.7.7 1.8c.1.1 1.2 2 3 2.6.4.2.8.3 1 .3.5.1.9.1 1.2-.1.3-.2.6-.6.7-.9l.1-.4-1.6-.8-.5.6c0 .1-.1.1-.3 0-.2-.1-.7-.3-1.3-.9-.5-.4-.9-1-1-1.2-.1-.2 0-.2 0-.3l.4-.5c.1-.1.1-.2 0-.3l-.6-1.3c-.1-.2-.2-.2-.4-.2h-.3Z"/>
-        </svg>
-        <span data-i18n="footer_whatsapp">WhatsApp</span>
-      </a>
-      <a id="footMailLink" class="foot-btn mail" href="mailto:empiredonko@gmail.com?subject=Partenariat%20%2F%20outil%20personnalis%C3%A9%20-%20Etwas" aria-label="Contacter par email">
-        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-          <circle cx="12" cy="12" r="12" fill="#0F1D33"/>
-          <path fill="#fff" d="M6.5 8.3h11c.6 0 1 .4 1 1v5.4c0 .6-.4 1-1 1h-11c-.6 0-1-.4-1-1V9.3c0-.6.4-1 1-1Zm.7 1.1L12 12.9l4.8-3.5H7.2Z"/>
-        </svg>
-        <span data-i18n="footer_email">Email</span>
-      </a>
-    </div>
-    <div class="foot-note">+229 01 96 80 91 06 · empiredonko@gmail.com</div>
-    <a class="store-cta-btn" href="https://empirecode.mychariow.co/" target="_blank" rel="noopener noreferrer">
-      <span class="store-cta-dot"></span>
-      🛍️ EMPIRE CODE
-    </a>
     <div class="legal-footer-links">
       <a href="#" data-legal="cgu" data-i18n="legal_cgu">CGU</a> · <a href="#" data-legal="mentions" data-i18n="legal_mentions">Mentions légales</a> · <a href="#" data-legal="politique" data-i18n="legal_politique">Politique d'utilisation</a> · <a href="#" data-legal="guide" data-i18n="legal_guide">Guide d'utilisation</a> · <a href="#" data-legal="apropos" data-i18n="legal_apropos">À propos</a>
     </div>
@@ -949,6 +965,18 @@ iframe[src*="kkiapay"],
   </div>
 </div>
 
+<!-- Scanner de code-barre (Caisse) — HTML5 BarcodeDetector, avec repli propre
+     si l'appareil/navigateur ne le supporte pas (ex: certains iPhone/Safari). -->
+<div id="scanOverlay" class="scan-overlay" style="display:none;">
+  <div class="scan-topbar">
+    <span data-i18n="scan_title">Scanner un produit</span>
+    <button type="button" class="scan-close" id="scanCloseBtn" aria-label="Fermer">✕</button>
+  </div>
+  <video id="scanVideo" autoplay playsinline muted></video>
+  <div class="scan-frame" aria-hidden="true"></div>
+  <div class="scan-hint" id="scanHint" data-i18n="scan_hint">Cadrez le code-barre du produit dans le rectangle.</div>
+</div>
+
 <div id="plusSheetOverlay" class="legal-overlay" style="display:none;">
   <div class="legal-modal" style="max-height:50vh;">
     <div class="legal-modal-header">
@@ -965,14 +993,37 @@ iframe[src*="kkiapay"],
   </div>
 </div>
 
-<!-- ===== BOÎTES À SUGGESTIONS — 2 boutons flottants, discrets ===== -->
-<div id="suggestFab" style="position:fixed; right:14px; bottom:96px; z-index:40; display:flex; flex-direction:column; gap:10px;">
-  <button type="button" id="suggestWaBtn" aria-label="Suggestion WhatsApp" style="width:46px;height:46px;border-radius:50%;border:none;background:#25D366;box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer;display:flex;align-items:center;justify-content:center;">
+<!-- ===== BOÎTES À SUGGESTIONS — 2 boutons flottants, discrets =====
+     Ce sont des boîtes à suggestions INTERNES : au clic, un petit
+     formulaire s'ouvre dans l'application elle-même. Aucune app tierce
+     (WhatsApp, messagerie) ne s'ouvre, et aucune coordonnée (numéro,
+     email) n'est jamais affichée à l'utilisateur — le message part
+     directement au serveur Etwas. Masqués automatiquement dès que le
+     pied de page (et son lien "À propos") entre à l'écran, pour ne
+     jamais gêner un tap dessus. -->
+<div id="suggestFab" style="position:fixed; right:14px; bottom:96px; z-index:40; display:flex; flex-direction:column; gap:10px; transition:opacity .2s ease;">
+  <button type="button" id="suggestWaBtn" aria-label="Suggestion" style="width:46px;height:46px;border-radius:50%;border:none;background:#25D366;box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer;display:flex;align-items:center;justify-content:center;">
     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15l-1.1 4 4.1-1.1A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 0 1 6.9 12.6l-.2.3.6 2.2-2.3-.6-.3.2A8.2 8.2 0 1 1 12 3.8Zm-3.1 3.4c-.2 0-.5 0-.7.4-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.1 2 3.1 4.8 4.4.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8-.1.5-.3.9-1 1-1.4l.1-.5-2.4-1.2-.7 1c-.1.1-.2.2-.4.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.4.1-.5l.6-.7c.1-.2.2-.3.1-.5l-1-2.4c-.2-.4-.4-.4-.6-.4h-.5Z"/></svg>
   </button>
-  <button type="button" id="suggestEmailBtn" aria-label="Suggestion Email" style="width:46px;height:46px;border-radius:50%;border:none;background:var(--indigo);box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer;display:flex;align-items:center;justify-content:center;">
+  <button type="button" id="suggestEmailBtn" aria-label="Suggestion" style="width:46px;height:46px;border-radius:50%;border:none;background:var(--indigo);box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer;display:flex;align-items:center;justify-content:center;">
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#fff" d="M4 5.5h16c.8 0 1.5.7 1.5 1.5v10c0 .8-.7 1.5-1.5 1.5H4c-.8 0-1.5-.7-1.5-1.5V7c0-.8.7-1.5 1.5-1.5Zm.9 1.5L12 12l7.1-5H4.9Z"/></svg>
   </button>
+</div>
+
+<!-- Formulaire de suggestion interne (aucune app tierce, aucune coordonnée affichée) -->
+<div id="suggestOverlay" class="legal-overlay" style="display:none;">
+  <div class="legal-modal" style="max-height:60vh;">
+    <div class="legal-modal-header">
+      <span data-i18n="suggest_title">Une suggestion pour Etwas ?</span>
+      <button type="button" id="suggestModalClose" aria-label="Fermer">✕</button>
+    </div>
+    <div class="legal-modal-body">
+      <p class="hint" data-i18n="suggest_intro">Votre message est transmis directement à l'équipe Etwas. Aucune application externe ne s'ouvre, et aucune coordonnée personnelle n'est demandée.</p>
+      <textarea id="suggestText" rows="5" data-i18n-placeholder="suggest_placeholder" placeholder="Votre idée, votre remarque..." style="width:100%; border:1.5px solid var(--line); border-radius:10px; padding:10px; font-family:inherit; font-size:14px; resize:vertical;"></textarea>
+      <div id="suggestMsg" class="hint" style="min-height:18px; margin-top:6px;"></div>
+      <button type="button" id="suggestSendBtn" class="btn btn-ochre" style="width:100%; margin-top:10px;" data-i18n="suggest_send">Envoyer</button>
+    </div>
+  </div>
 </div>
 
 <nav class="bottom">
@@ -1074,7 +1125,14 @@ fr: {
   filter_today:"Aujourd'hui", filter_week:"Semaine", filter_month:"Ce mois", filter_year:"Année", filter_custom:"Date",
   rep_ca:"Chiffre d'affaires", rep_cost:"Coût d'achat", rep_profit:"Bénéfice net",
   empty_sales:"Aucune vente pour l'instant.", empty_docs:"Aucun document pour l'instant.",
-  action_edit:"Modifier", action_image:"Image", action_delete:"Supprimer", action_confirm:"Confirmer ?", action_publish_marketplace:"Publier", slogan:"Possédez votre commerce.",
+  action_edit:"Modifier", action_image:"Image", action_delete:"Supprimer", action_confirm:"Confirmer ?", action_publish_marketplace:"Publier",
+  scan_title:"Scanner un produit", scan_hint:"Cadrez le code-barre du produit dans le rectangle.",
+  scan_unsupported:"Le scan caméra n'est pas pris en charge par ce navigateur. Saisissez le code manuellement dans le champ de recherche.",
+  scan_camera_denied:"Accès à la caméra refusé ou indisponible. Vous pouvez toujours saisir le code manuellement.",
+  scan_no_match:"Aucun produit avec le code « {code} ». Vous pouvez l'ajouter dans la Référence d'un produit du Stock.", slogan:"Possédez votre commerce.",
+  suggest_title:"Une suggestion pour Etwas ?", suggest_intro:"Votre message est transmis directement à l'équipe Etwas. Aucune application externe ne s'ouvre, et aucune coordonnée personnelle n'est demandée.",
+  suggest_placeholder:"Votre idée, votre remarque...", suggest_send:"Envoyer", suggest_empty:"Écrivez votre message avant d'envoyer.",
+  suggest_sending:"Envoi en cours...", suggest_thanks:"Merci ! Votre message a bien été transmis.",
   action_credit_note:"Avoir", frozen_badge_title:"Facture verrouillée (inaltérable)",
   frozen_delete_blocked:"La facture {number} est verrouillée et ne peut pas être supprimée — générez un avoir si besoin de l'annuler.",
   confirm_delete_sale:"Supprimer cette vente de l'historique ?",
@@ -1149,8 +1207,8 @@ fr: {
   pay_failed_alert:"Paiement non abouti ou annulé. Aucun montant n'a été débité. Réessayez quand vous voulez.",
   pay_verifying:"Paiement reçu — vérification en cours auprès du serveur...", pay_verify_delay:"La confirmation prend plus de temps que prévu. Elle s'appliquera automatiquement dès qu'elle arrivera — revenez sur cet onglet dans quelques instants.",
   badge_free_label:"Gratuit", badge_pro_label:"Pro actif", badge_locked_label:"Verrouillé",
-  plan_month1:"Mensuel", plan_month2:"Bimestriel", plan_month3:"Trimestriel", plan_month6:"Semestriel",
-  plan_year1:"Annuel", plan_year2:"2 ans", plan_year3:"3 ans", plan_lifetime:"À vie",
+  plan_trial:"Essai complet", plan_mensuel:"Mensuel", plan_bimestriel:"Bimestriel", plan_trimestriel:"Trimestriel", plan_semestriel:"Semestriel",
+  plan_annuel:"Annuel", plan_2ans:"2 ans", plan_3ans:"3 ans", plan_avie:"À vie",
   plan_badge_best:"Meilleure offre", plan_badge_exclusive:"Offre Exclusive",
   pro_confirmed_lifetime:"Paiement confirmé. Etwas Pro à vie est actif — aucun renouvellement nécessaire.",
   pro_confirmed_plan:"Paiement confirmé. Plan {plan} actif jusqu'au {date}.",
@@ -1162,6 +1220,8 @@ fr: {
   pay_btn:"Payer et débloquer —",
   pay_hint:"Paiement unique via KKiaPay — Mobile Money ou carte bancaire (Visa/Mastercard), selon ce qui est disponible dans votre pays. Aucun prélèvement automatique : aucune carte ni numéro n'est enregistré chez nous, tout est géré par KKiaPay. À la fin de la période, revenez ici et repayez le plan de votre choix pour continuer.",
   pay_notice:"Le déverrouillage est enregistré sur cet appareil. Pour le retrouver sur un nouveau téléphone, utilisez Réglages → Sauvegarde & restauration — aucun contact nécessaire.",
+  pro_unified_hint:"Un seul paiement débloque Etwas Pro (Caisse) ET Etwas ADS (Marketplace) — la page de paiement est désormais commune aux deux.", pro_unified_btn:"Voir les offres et payer",
+  pro_unified_shell_only:"Cette action nécessite le shell Etwas complet (index.html) — ouvrez l'application depuis son point d'entrée habituel.",
   plan_days_access:"jours d'accès", plan_lifetime_access:"Accès illimité — paiement unique",
   per_month:"/mois",
 
@@ -1273,7 +1333,14 @@ en: {
   filter_today:"Today", filter_week:"Week", filter_month:"This month", filter_year:"Year", filter_custom:"Date",
   rep_ca:"Revenue", rep_cost:"Purchase cost", rep_profit:"Net profit",
   empty_sales:"No sales yet.", empty_docs:"No documents yet.",
-  action_edit:"Edit", action_image:"Image", action_delete:"Delete", action_confirm:"Confirm?", action_publish_marketplace:"Publish", slogan:"Own Your Commerce.",
+  action_edit:"Edit", action_image:"Image", action_delete:"Delete", action_confirm:"Confirm?", action_publish_marketplace:"Publish",
+  scan_title:"Scan a product", scan_hint:"Frame the product's barcode inside the rectangle.",
+  scan_unsupported:"Camera scanning isn't supported by this browser. Enter the code manually in the search field.",
+  scan_camera_denied:"Camera access denied or unavailable. You can still enter the code manually.",
+  scan_no_match:"No product with code \"{code}\". You can add it to a product's Reference in Stock.", slogan:"Own Your Commerce.",
+  suggest_title:"A suggestion for Etwas?", suggest_intro:"Your message goes straight to the Etwas team. No external app opens, and no personal contact info is requested.",
+  suggest_placeholder:"Your idea, your feedback...", suggest_send:"Send", suggest_empty:"Write your message before sending.",
+  suggest_sending:"Sending...", suggest_thanks:"Thank you! Your message has been sent.",
   action_credit_note:"Credit note", frozen_badge_title:"Locked invoice (immutable)",
   frozen_delete_blocked:"Invoice {number} is locked and cannot be deleted — generate a credit note if you need to cancel it.",
   confirm_delete_sale:"Delete this sale from history?",
@@ -1348,8 +1415,8 @@ en: {
   pay_failed_alert:"Payment not completed or cancelled. No amount was charged. Try again anytime.",
   pay_verifying:"Payment received — verifying with the server...", pay_verify_delay:"Confirmation is taking longer than expected. It will apply automatically once it arrives — check back on this tab shortly.",
   badge_free_label:"Free", badge_pro_label:"Pro active", badge_locked_label:"Locked",
-  plan_month1:"Monthly", plan_month2:"Bimonthly", plan_month3:"Quarterly", plan_month6:"Biannual",
-  plan_year1:"Annual", plan_year2:"2 years", plan_year3:"3 years", plan_lifetime:"Lifetime",
+  plan_trial:"Full trial", plan_mensuel:"Monthly", plan_bimestriel:"Bimonthly", plan_trimestriel:"Quarterly", plan_semestriel:"Biannual",
+  plan_annuel:"Annual", plan_2ans:"2 years", plan_3ans:"3 years", plan_avie:"Lifetime",
   plan_badge_best:"Best value", plan_badge_exclusive:"Exclusive Offer",
   pro_confirmed_lifetime:"Payment confirmed. Etwas Pro lifetime is active — no renewal needed.",
   pro_confirmed_plan:"Payment confirmed. {plan} plan active until {date}.",
@@ -1361,6 +1428,8 @@ en: {
   pay_btn:"Pay and unlock —",
   pay_hint:"One-time payment via KKiaPay — Mobile Money or bank card (Visa/Mastercard), depending on what's available in your country. No automatic debit: no card or number is stored with us, everything is handled by KKiaPay. When the period ends, come back here and pay again for the plan of your choice.",
   pay_notice:"The unlock is saved on this device. To find it on a new phone, use Settings → Backup & restore — no need to contact us.",
+  pro_unified_hint:"A single payment unlocks both Etwas Pro (Register) AND Etwas ADS (Marketplace) — the payment page is now shared between them.", pro_unified_btn:"See plans and pay",
+  pro_unified_shell_only:"This action requires the full Etwas shell (index.html) — open the app from its usual entry point.",
   plan_days_access:"days of access", plan_lifetime_access:"Unlimited access — one-time payment",
   per_month:"/mo",
 
@@ -1473,7 +1542,14 @@ de: {
   filter_today:"Heute", filter_week:"Woche", filter_month:"Dieser Monat", filter_year:"Jahr", filter_custom:"Datum",
   rep_ca:"Umsatz", rep_cost:"Einkaufskosten", rep_profit:"Nettogewinn",
   empty_sales:"Noch keine Verkäufe.", empty_docs:"Noch keine Dokumente.",
-  action_edit:"Bearbeiten", action_image:"Bild", action_delete:"Löschen", action_confirm:"Bestätigen?", action_publish_marketplace:"Veröffentlichen", slogan:"Ihr Handel, Ihre Kontrolle.",
+  action_edit:"Bearbeiten", action_image:"Bild", action_delete:"Löschen", action_confirm:"Bestätigen?", action_publish_marketplace:"Veröffentlichen",
+  scan_title:"Produkt scannen", scan_hint:"Positionieren Sie den Barcode des Produkts im Rahmen.",
+  scan_unsupported:"Kamera-Scan wird von diesem Browser nicht unterstützt. Geben Sie den Code manuell im Suchfeld ein.",
+  scan_camera_denied:"Kamerazugriff verweigert oder nicht verfügbar. Sie können den Code weiterhin manuell eingeben.",
+  scan_no_match:"Kein Produkt mit dem Code „{code}“. Sie können ihn in der Referenz eines Lagerprodukts hinzufügen.", slogan:"Ihr Handel, Ihre Kontrolle.",
+  suggest_title:"Ein Vorschlag für Etwas?", suggest_intro:"Ihre Nachricht geht direkt an das Etwas-Team. Es öffnet sich keine externe App, und es werden keine persönlichen Kontaktdaten verlangt.",
+  suggest_placeholder:"Ihre Idee, Ihre Anmerkung...", suggest_send:"Senden", suggest_empty:"Schreiben Sie Ihre Nachricht, bevor Sie senden.",
+  suggest_sending:"Wird gesendet...", suggest_thanks:"Danke! Ihre Nachricht wurde übermittelt.",
   action_credit_note:"Gutschrift", frozen_badge_title:"Gesperrte Rechnung (unveränderlich)",
   frozen_delete_blocked:"Die Rechnung {number} ist gesperrt und kann nicht gelöscht werden — erstellen Sie eine Gutschrift, um sie zu stornieren.",
   confirm_delete_sale:"Diesen Verkauf aus dem Verlauf löschen?",
@@ -1548,8 +1624,8 @@ de: {
   pay_failed_alert:"Zahlung nicht abgeschlossen oder abgebrochen. Es wurde kein Betrag abgebucht. Versuchen Sie es jederzeit erneut.",
   pay_verifying:"Zahlung erhalten — Überprüfung beim Server läuft...", pay_verify_delay:"Die Bestätigung dauert länger als erwartet. Sie wird automatisch angewendet, sobald sie eintrifft — schauen Sie in Kürze wieder auf diesem Tab vorbei.",
   badge_free_label:"Kostenlos", badge_pro_label:"Pro aktiv", badge_locked_label:"Gesperrt",
-  plan_month1:"Monatlich", plan_month2:"Zweimonatlich", plan_month3:"Vierteljährlich", plan_month6:"Halbjährlich",
-  plan_year1:"Jährlich", plan_year2:"2 Jahre", plan_year3:"3 Jahre", plan_lifetime:"Lebenslang",
+  plan_trial:"Kompletter Test", plan_mensuel:"Monatlich", plan_bimestriel:"Zweimonatlich", plan_trimestriel:"Vierteljährlich", plan_semestriel:"Halbjährlich",
+  plan_annuel:"Jährlich", plan_2ans:"2 Jahre", plan_3ans:"3 Jahre", plan_avie:"Lebenslang",
   plan_badge_best:"Bestes Angebot", plan_badge_exclusive:"Exklusivangebot",
   pro_confirmed_lifetime:"Zahlung bestätigt. Etwas Pro lebenslang ist aktiv — keine Verlängerung erforderlich.",
   pro_confirmed_plan:"Zahlung bestätigt. Plan {plan} aktiv bis {date}.",
@@ -1561,6 +1637,8 @@ de: {
   pay_btn:"Zahlen und freischalten —",
   pay_hint:"Einmalige Zahlung über KKiaPay — Mobile Money oder Bankkarte (Visa/Mastercard), je nachdem, was in Ihrem Land verfügbar ist. Kein automatischer Einzug: Weder Karte noch Nummer wird bei uns gespeichert, alles wird von KKiaPay verwaltet. Kommen Sie am Ende des Zeitraums hierher zurück und bezahlen Sie erneut den Plan Ihrer Wahl, um fortzufahren.",
   pay_notice:"Die Freischaltung wird auf diesem Gerät gespeichert. Um sie auf einem neuen Telefon wiederzufinden, verwenden Sie Einstellungen → Sicherung & Wiederherstellung — kein Kontakt erforderlich.",
+  pro_unified_hint:"Eine einzige Zahlung schaltet sowohl Etwas Pro (Kasse) als auch Etwas ADS (Marketplace) frei — die Zahlungsseite ist jetzt für beide gemeinsam.", pro_unified_btn:"Angebote ansehen und bezahlen",
+  pro_unified_shell_only:"Diese Aktion erfordert die vollständige Etwas-Shell (index.html) — öffnen Sie die App über ihren gewohnten Einstiegspunkt.",
   plan_days_access:"Tage Zugriff", plan_lifetime_access:"Unbegrenzter Zugriff — einmalige Zahlung",
   per_month:"/Monat",
 
@@ -1637,15 +1715,15 @@ function trialRemaining(){ return Math.max(0, effectiveTrialLimit() - trialUsed(
 // SANS LIMITE pendant 30 jours. Passé ce délai, l'utilisateur retombe sur
 // cet écran pour choisir un plan de renouvellement (mensuel à à vie).
 const PLANS = [
-  { id:"trial1",   label:"Essai complet",  days:30,   price:656,    oldPrice:null,   color:"#0F1D33", badge:"trial" },
-  { id:"month1",   label:"Mensuel",     days:30,   price:7500,   oldPrice:15000,  color:"#6FA0F5" },
-  { id:"month2",   label:"Bimestriel",  days:60,   price:13500,  oldPrice:27000,  color:"#4E86EA" },
-  { id:"month3",   label:"Trimestriel", days:90,   price:18900,  oldPrice:37800,  color:"#2F6FE4" },
-  { id:"month6",   label:"Semestriel",  days:180,  price:33900,  oldPrice:67800,  color:"#1C56C4" },
-  { id:"year1",    label:"Annuel",      days:365,  price:55900,  oldPrice:111800, color:"#0F1D33", badge:"best" },
-  { id:"year2",    label:"2 ans",       days:730,  price:93900,  oldPrice:187800, color:"#0A1526" },
-  { id:"year3",    label:"3 ans",       days:1095, price:123900, oldPrice:247800, color:"#3A4E70" },
-  { id:"lifetime", label:"À vie",       days:null, price:279900, oldPrice:559800, color:"#123F94", badge:"exclusive" }
+  { id:"trial",       label:"Essai complet",  days:30,   price:656,    oldPrice:null,   color:"#082045", badge:"trial" },
+  { id:"mensuel",     label:"Mensuel",     days:30,   price:7500,   oldPrice:15000,  color:"#6FA0F5" },
+  { id:"bimestriel",  label:"Bimestriel",  days:60,   price:13500,  oldPrice:27000,  color:"#4E86EA" },
+  { id:"trimestriel", label:"Trimestriel", days:90,   price:18900,  oldPrice:37800,  color:"#2F6FE4" },
+  { id:"semestriel",  label:"Semestriel",  days:180,  price:33900,  oldPrice:67800,  color:"#1C56C4" },
+  { id:"annuel",      label:"Annuel",      days:365,  price:55900,  oldPrice:111800, color:"#082045", badge:"best" },
+  { id:"2ans",        label:"2 ans",       days:730,  price:93900,  oldPrice:187800, color:"#0A1526" },
+  { id:"3ans",        label:"3 ans",       days:1095, price:123900, oldPrice:247800, color:"#3A4E70" },
+  { id:"avie",        label:"À vie",       days:null, price:279900, oldPrice:559800, color:"#123F94", badge:"exclusive" }
 ];
 
 /* Devises d'affichage — le FCFA (XOF) reste la seule unité de saisie/stockage,
@@ -1708,7 +1786,8 @@ let trialLimitOverride = load(KEYS.trialOverride, null); // bonus/illimité attr
 let counters = load(KEYS.counters, {facture:0, devis:0});
 let currency = load(KEYS.currency, "XOF");
 let rates = load(KEYS.rates, {EUR_USD:null, updatedAt:null});
-let selectedPlanId = "month1";
+// (la sélection de plan se fait désormais exclusivement dans la page de
+// paiement unique du shell — voir EtwasShell.js)
 let editingDocId = null;   // null = nouveau document ; sinon id du document en cours de modification
 let pendingCreditNoteFor = null; // numéro de la facture d'origine si le document en cours est un avoir
 /* allowFreeUpdate : n'est vrai que juste après un clic explicite sur "Modifier"
@@ -3087,12 +3166,16 @@ function applySiteConfig(cfg){
   }
   if(cfg.tagline){ const el=document.getElementById("brandTag"); if(el) el.textContent = cfg.tagline; }
   if(cfg.logo){
-    const svg = document.querySelector("svg.brand-logo");
-    if(svg){
-      const img = document.createElement("img");
-      img.src = cfg.logo; img.alt = "Etwas"; img.className = "brand-logo";
-      img.style.cssText = "width:34px;height:44px;object-fit:contain;border-radius:6px;";
-      svg.replaceWith(img);
+    const existing = document.querySelector(".brand-logo");
+    if(existing){
+      if(existing.tagName === "IMG"){
+        existing.src = cfg.logo; // remplace simplement la source de l'image par défaut
+      } else {
+        const img = document.createElement("img");
+        img.src = cfg.logo; img.alt = "Etwas"; img.className = "brand-logo";
+        img.style.cssText = "height:30px;object-fit:contain;";
+        existing.replaceWith(img);
+      }
     }
   }
   // Couleurs — chaque champ est optionnel, ne remplace que ce qui est fourni
@@ -3138,13 +3221,6 @@ function applySiteConfig(cfg){
     }
     if(el) el.style.display = "none";
   }
-  if(cfg.whatsapp || cfg.email){
-    const c = suggestContact();
-    const waLink = document.getElementById("footWaLink");
-    const mailLink = document.getElementById("footMailLink");
-    if(waLink) waLink.href = `https://wa.me/${c.wa.replace(/[^0-9]/g,"")}?text=${encodeURIComponent("Bonjour, je vous contacte depuis Etwas.")}`;
-    if(mailLink) mailLink.href = `mailto:${c.email}?subject=${encodeURIComponent("Partenariat / outil personnalisé - Etwas")}`;
-  }
 }
 
 /* Tentative silencieuse, non-bloquante, de récupérer une mise à jour de
@@ -3171,23 +3247,75 @@ async function loadRemoteSiteConfig(){
    BOÎTES À SUGGESTIONS — 2 boutons flottants (WhatsApp / Email),
    discrets, en bas à droite, au-dessus de la barre de navigation.
    ============================================================ */
-function suggestContact(){
-  return {
-    wa: window.__etwasKalculAdminWhatsapp || "2290196809106",
-    email: window.__etwasKalculAdminEmail || "empiredonko@gmail.com"
-  };
+/* ============================================================
+   BOÎTES À SUGGESTIONS — formulaire interne, sans app tierce, sans
+   coordonnée affichée. Le message part vers EtwasServer.js s'il est
+   configuré ; sinon (ou hors ligne), il est mis en file d'attente
+   locale et renvoyé automatiquement dès que possible — jamais perdu,
+   jamais bloquant.
+   ============================================================ */
+function openSuggestModal(){
+  document.getElementById("suggestOverlay").style.display = "flex";
+  document.getElementById("suggestText").value = "";
+  document.getElementById("suggestMsg").textContent = "";
+  document.getElementById("suggestText").focus();
 }
-document.getElementById("suggestWaBtn").addEventListener("click", ()=>{
-  const c = suggestContact();
-  const msg = t("suggest_wa_message");
-  window.open(`https://wa.me/${c.wa.replace(/[^0-9]/g,"")}?text=${encodeURIComponent(msg)}`, "_blank");
+function closeSuggestModal(){
+  document.getElementById("suggestOverlay").style.display = "none";
+}
+document.getElementById("suggestWaBtn").addEventListener("click", openSuggestModal);
+document.getElementById("suggestEmailBtn").addEventListener("click", openSuggestModal);
+document.getElementById("suggestModalClose").addEventListener("click", closeSuggestModal);
+
+function queueSuggestion(message){
+  const key = "etwas_kalcul_pending_suggestions";
+  let list = [];
+  try{ list = JSON.parse(localStorage.getItem(key) || "[]"); }catch(e){}
+  list.push({message, ts: Date.now()});
+  localStorage.setItem(key, JSON.stringify(list));
+}
+async function flushPendingSuggestions(){
+  if(typeof EtwasCloud === "undefined" || !EtwasCloud.isConfigured()) return;
+  const key = "etwas_kalcul_pending_suggestions";
+  let list = [];
+  try{ list = JSON.parse(localStorage.getItem(key) || "[]"); }catch(e){}
+  if(!list.length) return;
+  const remaining = [];
+  for(const item of list){
+    const ok = await EtwasCloud.sendFeedback(item.message).catch(()=>false);
+    if(!ok) remaining.push(item);
+  }
+  localStorage.setItem(key, JSON.stringify(remaining));
+}
+window.addEventListener("online", flushPendingSuggestions);
+
+document.getElementById("suggestSendBtn").addEventListener("click", async ()=>{
+  const text = document.getElementById("suggestText").value.trim();
+  const msgEl = document.getElementById("suggestMsg");
+  if(!text){ msgEl.textContent = t("suggest_empty"); return; }
+  msgEl.textContent = t("suggest_sending");
+  let ok = false;
+  if(typeof EtwasCloud !== "undefined" && EtwasCloud.isConfigured()){
+    ok = await EtwasCloud.sendFeedback(text).catch(()=>false);
+  }
+  if(!ok) queueSuggestion(text); // hors ligne / serveur non configuré : jamais perdu
+  msgEl.textContent = t("suggest_thanks");
+  setTimeout(closeSuggestModal, 1200);
 });
-document.getElementById("suggestEmailBtn").addEventListener("click", ()=>{
-  const c = suggestContact();
-  const subject = encodeURIComponent(t("suggest_email_subject"));
-  const body = encodeURIComponent(t("suggest_wa_message"));
-  window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
-});
+
+/* Le FAB des suggestions se masque automatiquement dès que le pied de
+   page (et son lien "À propos") apparaît à l'écran, pour ne jamais le
+   couvrir — quelle que soit la taille de l'écran ou la langue active. */
+const suggestFabEl = document.getElementById("suggestFab");
+const siteFooterEl = document.querySelector(".site-footer");
+if(suggestFabEl && siteFooterEl && "IntersectionObserver" in window){
+  new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      suggestFabEl.style.opacity = entry.isIntersecting ? "0" : "1";
+      suggestFabEl.style.pointerEvents = entry.isIntersecting ? "none" : "auto";
+    });
+  }, {threshold:0}).observe(siteFooterEl);
+}
 
 /* ============================================================
    PWA — installation ("Ajouter à l'écran d'accueil") et
@@ -3201,7 +3329,14 @@ function isStandaloneMode(){
 }
 function updateInstallUI(){
   const card = document.getElementById("installCard");
-  if(card) card.style.display = isStandaloneMode() ? "none" : "block";
+  if(!card) return;
+  // Fusionné dans le shell Etwas (index.html) : l'installation PWA est
+  // désormais gérée UNE SEULE FOIS, au niveau du shell — jamais ici.
+  // Ce module ne montre sa propre carte d'installation que si, par
+  // exception, il est ouvert seul en dehors du shell (ex: test direct
+  // du fichier), pour ne jamais laisser un utilisateur sans solution.
+  const runningInsideShell = (window.parent !== window);
+  card.style.display = (runningInsideShell || isStandaloneMode()) ? "none" : "block";
 }
 
 window.addEventListener("beforeinstallprompt", (e)=>{
@@ -3609,7 +3744,7 @@ function printDocument(doc){
   const area = document.getElementById("print-area");
   const isDevis = doc.type === "devis";
   const isVente = doc.type === "vente";
-  const accent = isVente ? "#3A4E70" : (isDevis ? "#2F6FE4" : "#0F1D33");
+  const accent = isVente ? "#3A4E70" : (isDevis ? "#2F6FE4" : "#082045");
   const accentLight = isVente ? "#EAF1FE" : (isDevis ? "#EAF1FE" : "#EAF1FE");
   const docTitle = isVente ? t("tpl_ticket") : (isDevis ? t("tpl_devis") : t("tpl_facture"));
   const rows = doc.items.map((i,idx)=>`
@@ -3620,9 +3755,9 @@ function printDocument(doc){
       <td style="padding:9px 10px;text-align:right;white-space:nowrap;">${fmtNum(i.qty*i.price)}</td>
     </tr>`).join("");
   const tot = doc.totals || computeTotals();
-  const kalculMark = `
+  const etwasMark = `
     <div style="display:flex;align-items:center;gap:6px;opacity:.6;">
-      <svg viewBox="0 0 100 130" width="16" height="21" aria-hidden="true"><rect x="0" y="0" width="100" height="100" rx="24" fill="#0F1D33"/><text x="50" y="77" font-family="Georgia, serif" font-size="68" font-weight="700" fill="#2F6FE4" text-anchor="middle">K</text></svg>
+      <svg viewBox="0 0 100 130" width="16" height="21" aria-hidden="true"><rect x="0" y="0" width="100" height="100" rx="18" fill="#082045"/><text x="50" y="76" font-family="-apple-system, Arial, sans-serif" font-size="62" font-weight="800" fill="#FFFFFF" text-anchor="middle">E</text></svg>
       <span style="font-size:10px;letter-spacing:1.5px;color:#777;font-weight:700;">ETWAS</span>
     </div>`;
   const clientLogo = (isPro() && settings.logo) ? `<img src="${settings.logo}" alt="" style="width:46px;height:46px;object-fit:cover;border-radius:8px;">` : "";
@@ -3646,7 +3781,7 @@ function printDocument(doc){
     ${watermark}
     <div style="position:relative; z-index:1;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-      ${kalculMark}
+      ${etwasMark}
       ${clientLogo}
     </div>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid ${accent};padding-bottom:16px;margin-bottom:22px;">
@@ -3748,7 +3883,7 @@ async function buildDocCanvas(doc){
   const descColW = contentW*0.44;
   const isDevis = doc.type === "devis";
   const isVente = doc.type === "vente";
-  const accent = isVente ? "#3A4E70" : (isDevis ? "#2F6FE4" : "#0F1D33");
+  const accent = isVente ? "#3A4E70" : (isDevis ? "#2F6FE4" : "#082045");
   const accentLight = isVente ? "#EAF1FE" : (isDevis ? "#EAF1FE" : "#EAF1FE");
   const docTitle = isVente ? t("tpl_ticket") : (isDevis ? t("tpl_devis") : t("tpl_facture"));
 
@@ -3802,10 +3937,10 @@ async function buildDocCanvas(doc){
   let y = 26;
   // Ligne de marque : logo Etwas (discret) à gauche, logo de l'entreprise (Etwas Pro) à droite
   ctx.globalAlpha = 0.6;
-  ctx.fillStyle = "#0F1D33";
+  ctx.fillStyle = "#082045";
   roundRect(ctx, marginX, y-14, 18, 18, 5); ctx.fill();
-  ctx.fillStyle = "#2F6FE4"; ctx.font = "bold 12px " + IMG_DISPLAY_FONT; ctx.textAlign = "center";
-  ctx.fillText("K", marginX+9, y+1);
+  ctx.fillStyle = "#FFFFFF"; ctx.font = "bold 12px " + IMG_DISPLAY_FONT; ctx.textAlign = "center";
+  ctx.fillText("E", marginX+9, y+1);
   ctx.fillStyle = "#777"; ctx.font = "bold 9px " + IMG_BODY_FONT; ctx.textAlign = "left";
   ctx.fillText("ETWAS", marginX+24, y+1);
   ctx.globalAlpha = 1;
@@ -3819,7 +3954,7 @@ async function buildDocCanvas(doc){
 
   // En-tête : coordonnées entreprise à gauche, titre + numéro à droite
   let textX = marginX;
-  ctx.fillStyle = "#0F1D33";
+  ctx.fillStyle = "#082045";
   ctx.textAlign = "left";
   ctx.font = "bold 20px " + IMG_DISPLAY_FONT;
   ctx.fillText(settings.name || "Etwas", textX, y+10);
@@ -3861,7 +3996,7 @@ async function buildDocCanvas(doc){
     ctx.textAlign = "left";
     ctx.fillStyle = "#888"; ctx.font = "9px " + IMG_BODY_FONT;
     ctx.fillText(t("tpl_client").toUpperCase(), clientBoxX+14, y+18);
-    ctx.fillStyle = "#0F1D33"; ctx.font = "bold 13px " + IMG_BODY_FONT;
+    ctx.fillStyle = "#082045"; ctx.font = "bold 13px " + IMG_BODY_FONT;
     ctx.fillText(doc.clientName || "", clientBoxX+14, y+35);
     ctx.font = "11.5px " + IMG_BODY_FONT; ctx.fillStyle = "#4C5C77";
     ctx.fillText(doc.clientPhone || "", clientBoxX+14, y+50);
@@ -3887,7 +4022,7 @@ async function buildDocCanvas(doc){
   rowsLayout.forEach((r, idx)=>{
     const rowTop = y;
     if(idx % 2 === 1){ ctx.fillStyle = accentLight; ctx.fillRect(marginX, rowTop, contentW, r.height); }
-    ctx.fillStyle = "#0F1D33";
+    ctx.fillStyle = "#082045";
     ctx.textAlign = "left";
     r.lines.forEach((line,i)=> ctx.fillText(line, col.desc+8, rowTop+14+i*17));
     ctx.textAlign = "right";
@@ -3905,7 +4040,7 @@ async function buildDocCanvas(doc){
   const totBoxW = 280, totBoxX = W-marginX-totBoxW;
   const drawTotalLine = (label, valStr, bold)=>{
     ctx.textAlign = "left"; ctx.font = (bold?"bold ":"") + "13px " + IMG_BODY_FONT;
-    ctx.fillStyle = "#0F1D33";
+    ctx.fillStyle = "#082045";
     ctx.fillText(label, totBoxX+10, y);
     ctx.textAlign = "right";
     ctx.fillText(valStr, W-marginX-10, y);
@@ -4087,25 +4222,25 @@ async function buildTicketCanvas(data){
   if(isPro() && settings.logo){
     try{ const img = await loadImage(settings.logo); ctx.drawImage(img, W/2-20, y-14, 40, 40); y += 34; }catch(e){}
   }
-  ctx.font = "bold 15px " + IMG_BODY_FONT; ctx.fillStyle = "#0F1D33";
+  ctx.font = "bold 15px " + IMG_BODY_FONT; ctx.fillStyle = "#082045";
   ctx.fillText(settings.name || "Etwas", W/2, y); y += 15;
   ctx.font = "10px " + IMG_BODY_FONT; ctx.fillStyle = "#555";
   if(settings.address){ ctx.fillText(settings.address, W/2, y); y += 13; }
   if(settings.phone){ ctx.fillText(settings.phone, W/2, y); y += 13; }
   y += 6;
-  ctx.font = "bold 12px " + IMG_BODY_FONT; ctx.fillStyle="#0F1D33";
+  ctx.font = "bold 12px " + IMG_BODY_FONT; ctx.fillStyle="#082045";
   ctx.fillText(data.docLabel, W/2, y); y += 14;
   ctx.font = "10px " + IMG_BODY_FONT; ctx.fillStyle="#555";
   ctx.fillText(`${t("tpl_no")} ${data.number} · ${data.date}`, W/2, y); y += 12;
   ctx.strokeStyle="#000"; ctx.setLineDash([3,2]); ctx.beginPath(); ctx.moveTo(marginX,y); ctx.lineTo(W-marginX,y); ctx.stroke(); ctx.setLineDash([]);
   y += 14;
   if(data.clientName){
-    ctx.textAlign="left"; ctx.font="11px "+IMG_BODY_FONT; ctx.fillStyle="#0F1D33";
+    ctx.textAlign="left"; ctx.font="11px "+IMG_BODY_FONT; ctx.fillStyle="#082045";
     ctx.fillText(`${t("tpl_client")}: ${data.clientName}`, marginX, y); y += clientH;
   }
   ctx.font = "11px " + IMG_BODY_FONT;
   data.items.forEach(i=>{
-    ctx.textAlign="left"; ctx.fillStyle="#0F1D33";
+    ctx.textAlign="left"; ctx.fillStyle="#082045";
     ctx.fillText(`${i.qty}× ${i.name}`, marginX, y);
     ctx.textAlign="right";
     ctx.fillText(fmtNum(i.amount), W-marginX, y);
@@ -4113,7 +4248,7 @@ async function buildTicketCanvas(data){
   });
   ctx.strokeStyle="#000"; ctx.setLineDash([3,2]); ctx.beginPath(); ctx.moveTo(marginX,y); ctx.lineTo(W-marginX,y); ctx.stroke(); ctx.setLineDash([]);
   y += 18;
-  ctx.textAlign="left"; ctx.font="bold 14px "+IMG_BODY_FONT; ctx.fillStyle="#0F1D33";
+  ctx.textAlign="left"; ctx.font="bold 14px "+IMG_BODY_FONT; ctx.fillStyle="#082045";
   ctx.fillText(t("sub_total"), marginX, y);
   ctx.textAlign="right";
   ctx.fillText(fmt(data.total), W-marginX, y);
@@ -4123,7 +4258,7 @@ async function buildTicketCanvas(data){
     notesLines.forEach(l=>{ ctx.fillText(l, marginX, y); y+=14; });
     y += 4;
   }
-  ctx.textAlign="center"; ctx.font="bold 11px "+IMG_BODY_FONT; ctx.fillStyle="#0F1D33";
+  ctx.textAlign="center"; ctx.font="bold 11px "+IMG_BODY_FONT; ctx.fillStyle="#082045";
   ctx.fillText(t("tpl_thanks"), W/2, y); y += 14;
   ctx.font="9px "+IMG_BODY_FONT; ctx.fillStyle="#999";
   ctx.fillText(docFooterText(), W/2, y);
@@ -4494,7 +4629,7 @@ document.getElementById("calcRealBtn").addEventListener("click", ()=>{
   const marginAmt = price - cost;
   const marginPct = (marginAmt / price) * 100;
   box.style.display = "block";
-  const color = marginPct < 0 ? "#3A4E70" : "#0F1D33";
+  const color = marginPct < 0 ? "#3A4E70" : "#082045";
   box.innerHTML = `
     <div class="big amount" style="color:${color};">${marginPct.toFixed(1)}%</div>
     <div class="small">${t("real_result_sub")}</div>
@@ -4820,6 +4955,95 @@ function renderPOSProducts(){
 }
 document.getElementById("posSearch").addEventListener("input", renderPOSProducts);
 
+/* ============================================================
+   SCANNER CODE-BARRE (Caisse) — API native HTML5 BarcodeDetector.
+   Pas de librairie externe (contrainte fichiers à plat + hors ligne) :
+   on utilise l'API du navigateur quand elle existe, et on se replie
+   proprement sur un message clair sinon (ex: Safari iOS ne l'expose
+   pas encore nativement au moment de l'écriture de ce code).
+   Le champ existant "Référence" du produit sert de code-barre : le
+   scan recherche une correspondance exacte dans products[].ref.
+   ============================================================ */
+let scanStream = null;
+let scanRafId = null;
+
+async function openBarcodeScanner(){
+  const overlay = document.getElementById("scanOverlay");
+  const video = document.getElementById("scanVideo");
+  const hint = document.getElementById("scanHint");
+  overlay.style.display = "flex";
+
+  if(!("BarcodeDetector" in window)){
+    hint.innerHTML = `<div class="scan-fallback">
+      <div style="font-size:38px;">📷</div>
+      <div>${t("scan_unsupported")}</div>
+    </div>`;
+    video.style.display = "none";
+    return;
+  }
+  video.style.display = "block";
+
+  try{
+    scanStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "environment" }, audio: false
+    });
+  }catch(e){
+    hint.textContent = t("scan_camera_denied");
+    return;
+  }
+  video.srcObject = scanStream;
+
+  const detector = new BarcodeDetector({
+    formats: ["ean_13","ean_8","upc_a","upc_e","code_128","code_39","qr_code"]
+  });
+
+  const scanLoop = async () => {
+    if(!scanStream) return; // scanner fermé entre-temps
+    try{
+      const codes = await detector.detect(video);
+      if(codes && codes.length){
+        handleScannedCode(codes[0].rawValue);
+        return; // on arrête la boucle : handleScannedCode referme le scanner
+      }
+    }catch(e){ /* frame illisible — on retente à la frame suivante, silencieux */ }
+    scanRafId = requestAnimationFrame(scanLoop);
+  };
+  scanRafId = requestAnimationFrame(scanLoop);
+}
+
+function closeBarcodeScanner(){
+  if(scanRafId) cancelAnimationFrame(scanRafId);
+  scanRafId = null;
+  if(scanStream){
+    scanStream.getTracks().forEach(tr => tr.stop());
+    scanStream = null;
+  }
+  document.getElementById("scanOverlay").style.display = "none";
+}
+
+function handleScannedCode(code){
+  closeBarcodeScanner();
+  const match = products.find(p => (p.ref||"").trim() !== "" && (p.ref||"").trim() === String(code).trim());
+  if(match){
+    addToCart(match.id);
+    document.getElementById("posSearch").value = "";
+    renderPOSProducts();
+    // Petit retour visuel/tactile de confirmation, discret et non bloquant.
+    if(navigator.vibrate) navigator.vibrate(60);
+  } else {
+    // Pas de correspondance : on préremplit la recherche avec le code lu,
+    // au cas où il correspondrait partiellement à un nom/réf existant,
+    // plutôt que d'échouer silencieusement.
+    document.getElementById("posSearch").value = code;
+    renderPOSProducts();
+    alert(t("scan_no_match").replace("{code}", code));
+  }
+}
+
+document.getElementById("scanBarcodeBtn").addEventListener("click", openBarcodeScanner);
+document.getElementById("scanCloseBtn").addEventListener("click", closeBarcodeScanner);
+
+
 function addToCart(productId){
   const p = products.find(x=>x.id===productId);
   if(!p || p.qty<=0) return;
@@ -4935,47 +5159,19 @@ document.getElementById("validateSaleBtn").addEventListener("click", ()=>{
 });
 
 /* ============================================================
-   ABONNEMENT / KKIAPAY — plans multiples (mobile money + carte bancaire)
+   ABONNEMENT — voir la page de paiement UNIQUE du shell Etwas
+   (index.html / EtwasShell.js). Ce module ne gère plus lui-même
+   la sélection de plan ni l'ouverture de KKiaPay : il se contente
+   de demander l'ouverture de cette page (initKkiaPay ci-dessous)
+   et d'écouter sa confirmation (voir le listener "message" plus haut).
    ============================================================ */
-function getSelectedPlan(){
-  return PLANS.find(p=>p.id===selectedPlanId) || PLANS[0];
-}
-
-function renderPlans(){
-  const el = document.getElementById("plansList");
-  el.innerHTML = PLANS.map(p=>{
-    const perMonth = (p.days && p.days > 30) ? Math.round(p.price/(p.days/30)) : null;
-    const c = p.color || "#0F1D33";
-    return `
-    <div class="plan-card ${p.id===selectedPlanId?'selected':''}" data-plan="${p.id}" style="border-left:5px solid ${c}; ${p.id===selectedPlanId?`box-shadow:0 0 0 1.5px ${c} inset;`:""}">
-      <div class="plan-top">
-        <span class="plan-label" style="color:${c};">${t("plan_"+p.id)}</span>
-        ${p.badge ? `<span class="plan-badge plan-badge-pulse" style="background:${c};">${t(p.badge==="exclusive"?"plan_badge_exclusive":"plan_badge_best")}</span>` : ""}
-      </div>
-      ${p.oldPrice ? `<div class="plan-old-price amount">${fmt(p.oldPrice)}</div>` : ""}
-      <div class="plan-price amount" style="color:${c};">${fmt(p.price)}</div>
-      <div class="plan-sub">${p.days ? `${p.days} ${t("plan_days_access")}` : t("plan_lifetime_access")}${perMonth ? ` · ≈ ${fmt(perMonth)}${t("per_month")}` : ""}</div>
-    </div>`;
-  }).join("");
-  el.querySelectorAll(".plan-card").forEach(card=>{
-    card.addEventListener("click", ()=>{
-      if(card.dataset.plan === selectedPlanId) return;
-      selectedPlanId = card.dataset.plan;
-      renderPlans();
-      document.getElementById("payAmountLabel").textContent = fmt(getSelectedPlan().price);
-      rebindKkiaPay();
-    });
-  });
-}
 
 function renderProView(){
-  renderPlans();
   const line = document.getElementById("proStatusLine");
   const details = document.getElementById("proDetails");
-  document.getElementById("payAmountLabel").textContent = fmt(getSelectedPlan().price);
   const dateLocale = localeCode();
   if(isPro()){
-    const planLabelKey = "plan_" + (pro.planId || "month1");
+    const planLabelKey = "plan_" + (pro.planId || "mensuel");
     if(pro.expiresAt === null){
       line.innerHTML = `<span class="badge pro">${t("badge_pro_label")}</span> ${t("pro_active_lifetime")}`;
     } else {
@@ -5007,100 +5203,42 @@ function activatePro(plan){
   alert(msg);
 }
 
-/* KKiaPay — mobile money ET carte bancaire (Visa/Mastercard) dans un même
-   widget. C'est KKiaPay lui-même qui détecte le pays du numéro saisi par le
-   client et propose les moyens de paiement disponibles pour ce pays (mobile
-   money local si couvert, carte bancaire toujours disponible). Aucune
-   restriction de pays n'est donc nécessaire côté Etwas. */
-let kkiapayListenersBound = false;
-function payReference(plan){
-  // Référence courte et non devinable, utile pour retrouver la transaction
-  // sans jamais transmettre de donnée sensible du magasin.
-  return "KLC-" + plan.id + "-" + Date.now().toString(36).toUpperCase();
-}
-function openKkiaPayCheckout(){
-  if(typeof openKkiapayWidget === "undefined"){
-    alert(t("pay_module_error"));
-    return;
-  }
-  const plan = getSelectedPlan();
-  const pendingRef = payReference(plan);
-  const etwId = (typeof EtwasCloud !== "undefined") ? EtwasCloud.getEtwId() : null;
-  sessionStorage.setItem("etwas_kalcul_pending_pay", JSON.stringify({ref:pendingRef, planId:plan.id}));
-  openKkiapayWidget({
-    amount: plan.price,
-    key: CONFIG.KKIAPAY_PUBLIC_KEY,
-    sandbox: CONFIG.KKIAPAY_SANDBOX,
-    position: "center",
-    theme: "#0F1D33",
-    // EtwasServer.js lit ce champ pour savoir QUEL compte créditer et
-    // POURQUOI (trial vs abonnement) — voir /api/webhook/kkiapay. Reste un
-    // simple JSON opaque si le serveur n'est pas encore configuré : dans
-    // ce cas etwId vaut null et le webhook (désactivé) l'ignore de toute façon.
-    data: JSON.stringify({ ref: pendingRef, etwId, purpose: (plan.id === "trial1" ? "trial" : "subscription"), planId: plan.id }),
-    name: settings.name || "Client Etwas",
-    phone: (settings.phone || "").replace(/[^0-9]/g, "")
-  });
-}
-function bindKkiapayListeners(){
-  if(kkiapayListenersBound || typeof addSuccessListener === "undefined") return;
-  kkiapayListenersBound = true;
-  addSuccessListener((resp)=>{
-    let pending = null;
-    try{ pending = JSON.parse(sessionStorage.getItem("etwas_kalcul_pending_pay")||"null"); }catch(e){}
-    sessionStorage.removeItem("etwas_kalcul_pending_pay");
-    const plan = PLANS.find(p=>p.id===(pending && pending.planId)) || getSelectedPlan();
-
-    if(typeof EtwasCloud !== "undefined" && EtwasCloud.isConfigured() && EtwasCloud.getEtwId()){
-      // Le paiement a réussi côté KKiaPay, mais seul le webhook serveur
-      // (déclenché en tâche de fond par KKiaPay) fait réellement foi.
-      // On affiche une confirmation d'attente pendant qu'on sonde le
-      // statut réel du compte — jamais d'activation locale aveugle.
-      alert(t("pay_verifying"));
-      EtwasCloud.pollForActivation({timeoutMs: 25000, intervalMs: 2000}).then((result)=>{
-        if(result.ok){
-          activatePro(plan);
-        } else {
-          alert(t("pay_verify_delay"));
-          // Le webhook peut arriver avec un peu de retard réseau : on relance
-          // un dernier rafraîchissement au retour sur l'onglet, sans bloquer.
-          document.addEventListener("visibilitychange", function retryOnFocus(){
-            if(document.visibilityState === "visible"){
-              document.removeEventListener("visibilitychange", retryOnFocus);
-              EtwasCloud.refreshStatus().then(()=>{ if(isPro()) activatePro(plan); });
-            }
-          });
-        }
-      });
-    } else {
-      // Serveur non configuré : on garde le comportement historique
-      // (activation locale immédiate), pour ne jamais bloquer l'usage.
-      activatePro(plan);
-    }
-  });
-  if(typeof addFailedListener !== "undefined"){
-    addFailedListener(()=>{
-      sessionStorage.removeItem("etwas_kalcul_pending_pay");
-      alert(t("pay_failed_alert"));
-    });
-  }
-}
+/* KKiaPay — l'ouverture du widget de paiement se fait désormais UNIQUEMENT
+   depuis la page de paiement unique du shell Etwas (voir EtwasShell.js).
+   Ce module ne fait plus que déclencher cette page (initKkiaPay ci-dessous)
+   et écouter sa confirmation (voir le listener "message" plus haut, qui
+   appelle activatePro() directement à réception de "etwas:premium-activated"). */
 function initKkiaPay(){
   const btn = document.getElementById("pay-btn");
   if(!btn) return;
-  bindKkiapayListeners();
   const newBtn = btn.cloneNode(true);
   btn.parentNode.replaceChild(newBtn, btn);
   newBtn.addEventListener("click", (e)=>{
     e.preventDefault();
-    if(typeof openKkiapayWidget === "undefined"){
-      alert(t("pay_module_error"));
-      return;
-    }
-    openKkiaPayCheckout();
+    // Paiement désormais unique pour tout Etwas (Pro + ADS) : on demande
+    // au shell d'ouvrir SA page de paiement plutôt que d'ouvrir KKiaPay
+    // directement ici. Voir EtwasShell.js → initPaymentPage().
+    try{
+      if(window.parent && window.parent !== window){
+        window.parent.postMessage({type:"etwas:request-payment"}, "*");
+      } else {
+        alert(t("pro_unified_shell_only"));
+      }
+    }catch(err){}
   });
 }
 function rebindKkiaPay(){ initKkiaPay(); }
+
+/* Reçoit la confirmation d'activation diffusée par la page de paiement
+   unique du shell (après vérification réelle par EtwasServer.js) et
+   met à jour l'état Pro local — réutilise activatePro() telle quelle,
+   sans dupliquer la logique d'activation. */
+window.addEventListener("message", function(ev){
+  const msg = ev.data;
+  if(!msg || msg.type !== "etwas:premium-activated") return;
+  const plan = PLANS.find(p => p.id === msg.planId) || { id: msg.planId, days: msg.days };
+  activatePro(plan);
+});
 
 /* ============================================================
    INITIALISATION

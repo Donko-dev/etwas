@@ -119,7 +119,7 @@ function loadDB() {
   } catch (e) {
     // Premier démarrage, ou fichier corrompu : on repart d'une base saine
     // plutôt que de planter le serveur.
-    return { accounts: {}, processedTx: {}, salesChain: {}, boostedAds: {} };
+    return { accounts: {}, processedTx: {}, salesChain: {}, boostedAds: {}, feedback: [] };
   }
 }
 
@@ -482,6 +482,50 @@ app.post("/api/webhook/paypal", (req, res) => {
 });
 
 /* ============================================================================
+   6bis. CRÉATION DE FACTURE PLISIO — le client ne peut jamais appeler
+   l'API Plisio directement (ça exposerait la clé secrète dans le
+   navigateur). Cette route crée la facture côté serveur et renvoie
+   uniquement l'URL de paiement hébergée par Plisio, vers laquelle le
+   client est redirigé. Le webhook /api/webhook/plisio (section 6.2)
+   reçoit ensuite la confirmation en tâche de fond, comme d'habitude.
+   ============================================================================ */
+app.post("/api/pay/create-plisio-invoice", async (req, res) => {
+  if (!CONFIG.PLISIO_API_KEY) {
+    return res.status(503).json({ error: "plisio_not_configured" });
+  }
+  const { etwId, purpose, planId, amountEUR } = req.body;
+  if (!etwId || !amountEUR) {
+    return res.status(400).json({ error: "missing_fields" });
+  }
+
+  // Convention Etwas (voir _submitFeedback et le webhook Plisio) : le
+  // couple {etwId, purpose, planId} voyage dans order_name, encodé en
+  // JSON, et Plisio nous le renvoie tel quel dans son callback.
+  const orderName = JSON.stringify({ etwId, purpose: purpose || "subscription", planId: planId || "" });
+
+  const params = new URLSearchParams({
+    source_currency: "EUR",
+    source_amount: String(amountEUR),
+    order_name: orderName,
+    order_number: "etw_" + Date.now() + "_" + crypto.randomBytes(3).toString("hex"),
+    callback_url: (process.env.ETWAS_PUBLIC_URL || "") + "/api/webhook/plisio",
+    api_key: CONFIG.PLISIO_API_KEY
+  });
+
+  try {
+    const plisioRes = await fetch("https://plisio.net/api/v1/invoices/new?" + params.toString());
+    const data = await plisioRes.json();
+    if (!plisioRes.ok || data.status !== "success") {
+      return res.status(502).json({ error: "plisio_error", detail: data.data && data.data.message });
+    }
+    return res.json({ invoiceUrl: data.data.invoice_url });
+  } catch (e) {
+    console.error("[Plisio] Échec de création de facture :", e.message);
+    return res.status(502).json({ error: "plisio_unreachable" });
+  }
+});
+
+/* ============================================================================
    7. CHAÎNE GoBD — immuabilité comptable pour Etwas Pro.
 
       Principe : chaque écriture de vente/facture doit inclure le hachage
@@ -578,6 +622,28 @@ app.get("/api/ads/boosted", (req, res) => {
 });
 
 /* ============================================================================
+   8bis. BOÎTE À SUGGESTIONS — messages libres envoyés depuis les boutons
+   flottants (Etwas Pro). Volontairement minimaliste : aucune coordonnée
+   n'est demandée à l'utilisateur, le message est stocké tel quel pour
+   relecture manuelle par l'équipe (pas de traitement automatique).
+   ============================================================================ */
+app.post("/api/feedback", (req, res) => {
+  const message = String(req.body.message || "").trim().slice(0, 4000);
+  if (!message) return res.status(400).json({ error: "empty_message" });
+
+  withDB((db) => {
+    if (!db.feedback) db.feedback = [];
+    db.feedback.push({
+      message,
+      etwId: req.body.etwId || null,
+      module: req.body.module || "unknown",
+      at: serverNow()
+    });
+  });
+  res.status(201).json({ status: "ok" });
+});
+
+/* ============================================================================
    9. ROUTES D'ADMINISTRATION — protégées par ETWAS_ADMIN_TOKEN.
       Utile pour un tableau de bord interne minimal (compter les comptes
       actifs, forcer une vérification de chaîne, etc.) sans exposer ces
@@ -586,6 +652,11 @@ app.get("/api/ads/boosted", (req, res) => {
 app.get("/api/admin/accounts", requireAdmin, (req, res) => {
   const db = loadDB();
   res.json({ count: Object.keys(db.accounts).length, accounts: db.accounts });
+});
+
+app.get("/api/admin/feedback", requireAdmin, (req, res) => {
+  const db = loadDB();
+  res.json({ feedback: (db.feedback || []).slice().reverse() });
 });
 
 /* ============================================================================
