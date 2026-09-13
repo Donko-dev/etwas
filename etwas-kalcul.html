@@ -5309,6 +5309,11 @@ window.addEventListener("message", function(ev){
   if(msg.type === "etwas:set-lang" && ["fr","en","de"].includes(msg.lang)){
     setLang(msg.lang);
   }
+  if(msg.type === "etwas:open-legal" && msg.key){
+    // Demande venue de la page d'accueil du shell (liens du pied de page) :
+    // ouvre directement la fenêtre légale correspondante dans ce module.
+    openLegalModal(msg.key);
+  }
 });
 
 })();

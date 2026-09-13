@@ -16,6 +16,10 @@
 <meta name="keywords" content="Etwas, caisse, facturation, devis, stock, marketplace, annonces, mobile money, local-first, anonyme, sans inscription">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://etwas.com/">
+<link rel="alternate" hreflang="fr" href="https://etwas.com/">
+<link rel="alternate" hreflang="en" href="https://etwas.com/">
+<link rel="alternate" hreflang="de" href="https://etwas.com/">
+<link rel="alternate" hreflang="x-default" href="https://etwas.com/">
 
 <!-- Open Graph / réseaux sociaux -->
 <meta property="og:type" content="website">
@@ -26,10 +30,29 @@
 <meta property="og:image:width" content="896">
 <meta property="og:image:height" content="326">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Etwas | Own Your Commerce.">
 <meta name="twitter:description" content="L'écosystème souverain, anonyme et local-first pour gérer votre caisse avec Etwas Pro et propulser vos ventes mondiales avec Etwas ADS.">
 <meta name="twitter:image" content="etwas-og-image.png">
+
+<!-- Données structurées (schema.org) — aide Google à comprendre qu'Etwas
+     est à la fois une organisation et une application logicielle. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Etwas",
+  "alternateName": ["Etwas Pro", "Etwas ADS"],
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web, Android, iOS",
+  "description": "Etwas réunit une caisse professionnelle (Etwas Pro) et une marketplace mondiale (Etwas ADS) dans une seule application locale-first, sans inscription ni mot de passe.",
+  "offers": { "@type": "Offer", "price": "1", "priceCurrency": "EUR", "description": "Essai complet de 30 jours" },
+  "publisher": { "@type": "Organization", "name": "Empire Donko (TransTech Dynamic)" }
+}
+</script>
+
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#082045">
@@ -49,10 +72,11 @@
 <script src="EtwasCloud.js"></script>
 
 
-<!-- Écran de démarrage, retiré dès que les deux modules ont fini de charger -->
+<!-- Écran de démarrage — logo qui pulse, "ETWAS" qui s'écrit en boucle,
+     jusqu'à l'ouverture effective du site (3 à 5 secondes, voir initBoot). -->
 <div id="etwasBoot">
-  <img src="icon-192.png" alt="Etwas">
-  <div class="spin" aria-hidden="true"></div>
+  <img src="etwas-mark-square.png" alt="Etwas" class="boot-logo">
+  <div class="boot-typewriter"><span id="bootTypeText"></span><span class="boot-caret">|</span></div>
 </div>
 
 <header id="etwasTopBar">
@@ -63,49 +87,203 @@
       <span class="brand-slogan" id="brandSlogan">Own Your Commerce.</span>
     </div>
   </div>
-  <div id="etwasConnStatus"><span class="dot"></span><span>En ligne</span></div>
+  <div class="top-controls">
+    <button type="button" id="shellLangBtn" class="top-ctrl-btn" aria-label="Langue">FR</button>
+    <button type="button" id="shellThemeBtn" class="top-ctrl-btn" aria-label="Thème">🌙</button>
+    <div id="etwasConnStatus"><span class="dot"></span><span>En ligne</span></div>
+  </div>
 </header>
 
 <div id="etwasModules">
   <div id="etwasHome" class="etwas-hidden">
-    <div class="home-inner">
-      <img src="etwas-logo-full.png" alt="Etwas" class="home-logo">
-      <p class="home-slogan">Own Your Commerce.</p>
+    <article class="home-inner">
 
-      <button type="button" id="etwasInstallBtn" class="home-install-btn" style="display:none;">
-        📲 Installer Etwas
-      </button>
+      <!-- ============ HERO ============ -->
+      <header class="home-hero">
+        <img src="etwas-logo-full.png" alt="Etwas — Own Your Commerce" class="home-logo">
+        <p class="home-slogan" data-i18n="h_slogan"><em>Own Your Commerce.</em> — <em>Possédez votre commerce.</em></p>
+        <h1 data-i18n="h_hero_title">L'écosystème souverain, local-first, pour posséder tout votre commerce.</h1>
+        <p class="home-lede" data-i18n="h_hero_lede">Etwas réunit en une seule application ce qui, ailleurs, exige dix outils différents : une caisse professionnelle (<strong>Etwas Pro</strong>) et une marketplace mondiale (<strong>Etwas ADS</strong>), fonctionnant à 100% hors connexion, sans inscription, sans mot de passe.</p>
+        <button type="button" id="etwasInstallBtn" class="home-install-btn" style="display:none;" data-i18n="h_install_btn">📲 Installer Etwas sur cet appareil</button>
+        <div class="home-hero-links">
+          <button type="button" class="home-hero-link" data-goto="kalcul" data-i18n="h_hero_link_pro">🧾 Découvrir Etwas Pro</button>
+          <button type="button" class="home-hero-link" data-goto="marketplace" data-i18n="h_hero_link_ads">🛍️ Découvrir Etwas ADS</button>
+        </div>
+      </header>
 
-      <div class="home-section">
-        <div class="home-section-title">Partenariat &amp; outils personnalisés</div>
-        <p class="home-section-text">Une idée d'outil sur mesure, fonctionnant hors connexion, hors serveur, hors base de données, pour votre activité et votre confidentialité ? Écrivez-nous.</p>
-        <div class="home-contact-btns">
-          <a class="home-contact-btn wa" href="https://wa.me/2290196809106?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20Etwas." target="_blank" rel="noopener noreferrer" aria-label="Contacter sur WhatsApp">
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-              <circle cx="12" cy="12" r="12" fill="#25D366"/>
-              <path fill="#fff" d="M12 6.2a5.8 5.8 0 0 0-5 8.7l-.8 2.9 3-.8a5.8 5.8 0 1 0 2.8-10.8Zm0 1.3a4.5 4.5 0 0 1 3.9 6.8 4.5 4.5 0 0 1-7 1.1l-.2-.1-1.7.4.5-1.6-.1-.2a4.5 4.5 0 0 1 4.6-6.4Zm-2.1 2.3c-.1 0-.3 0-.4.2-.2.2-.6.6-.6 1.4s.6 1.7.7 1.8c.1.1 1.2 2 3 2.6.4.2.8.3 1 .3.5.1.9.1 1.2-.1.3-.2.6-.6.7-.9l.1-.4-1.6-.8-.5.6c0 .1-.1.1-.3 0-.2-.1-.7-.3-1.3-.9-.5-.4-.9-1-1-1.2-.1-.2 0-.2 0-.3l.4-.5c.1-.1.1-.2 0-.3l-.6-1.3c-.1-.2-.2-.2-.4-.2h-.3Z"/>
-            </svg>
-            WhatsApp
-          </a>
-          <a class="home-contact-btn mail" href="mailto:empiredonko@gmail.com?subject=Partenariat%20%2F%20outil%20personnalis%C3%A9%20-%20Etwas" aria-label="Contacter par email">
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-              <circle cx="12" cy="12" r="12" fill="#082045"/>
-              <path fill="#fff" d="M6.5 8.3h11c.6 0 1 .4 1 1v5.4c0 .6-.4 1-1 1h-11c-.6 0-1-.4-1-1V9.3c0-.6.4-1 1-1Zm.7 1.1L12 12.9l4.8-3.5H7.2Z"/>
-            </svg>
-            Email
+      <!-- ============ PRODUITS BOOSTÉS (Etwas ADS) ============ -->
+      <section class="home-section" id="homeBoostedSection" aria-labelledby="h-boosted-title">
+        <div class="home-section-eyebrow" data-i18n="h_boosted_eyebrow">EN VEDETTE</div>
+        <h2 id="h-boosted-title" data-i18n="h_boosted_title">Boutiques boostées sur Etwas ADS</h2>
+        <p class="home-section-intro" data-i18n="h_boosted_intro">Seules les boutiques ayant activé un <strong>Boost</strong> apparaissent ici, classées par catégorie — c'est la seule vitrine gratuite de ce niveau que propose Etwas : un vendeur qui investit dans sa visibilité est mis en avant devant tout le monde, dès la page d'accueil.</p>
+        <div id="homeBoostedGrid" class="home-boosted-grid">
+          <p class="home-boosted-empty" id="homeBoostedEmpty" data-i18n="h_boosted_empty">Aucune boutique boostée pour le moment — ouvrez l'onglet Marketplace pour être le premier référencé ici.</p>
+        </div>
+      </section>
+
+      <!-- ============ ETWAS PRO ============ -->
+      <section class="home-section" aria-labelledby="h-pro-title">
+        <img src="etwas-pro-logo.png" alt="Etwas Pro" class="home-section-logo">
+        <div class="home-section-eyebrow" data-i18n="h_pro_eyebrow">PRODUIT 1 — LA CAISSE</div>
+        <h2 id="h-pro-title" data-i18n="h_pro_title">Etwas Pro — votre caisse, votre stock, vos factures.</h2>
+        <p class="home-section-intro" data-i18n="h_pro_intro"><em>Etwas Pro</em> est le module de gestion commerciale d'Etwas : caisse enregistreuse, gestion de stock, facturation professionnelle et historique de ventes, conçu pour fonctionner <strong>100% hors connexion</strong>. Aucune donnée client, aucune facture, aucun produit n'est jamais envoyé à un serveur : tout reste sur l'appareil du commerçant.</p>
+
+        <div class="home-feature-grid">
+          <div class="home-feature">
+            <h3 data-i18n="h_pro_f1_t">🧾 Caisse (POS)</h3>
+            <p data-i18n="h_pro_f1_d">Vente rapide au comptoir directement depuis le Stock : recherche par nom ou référence, ou scan du code-barre à la caméra du téléphone pour ajouter un produit au panier en un geste. Le ticket se génère instantanément.</p>
+            <p class="home-feature-access" data-i18n="h_pro_f1_a"><strong>Accéder :</strong> onglet Caisse → barre de recherche ou bouton 📷.</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_pro_f2_t">📦 Stock</h3>
+            <p data-i18n="h_pro_f2_d">Ajoutez vos produits avec prix d'achat, prix de vente, quantité et jusqu'à plusieurs photos. Etwas calcule automatiquement votre marge. Chaque fiche produit peut être publiée sur Etwas ADS en un seul clic — voir la section fusion ci-dessous.</p>
+            <p class="home-feature-access" data-i18n="h_pro_f2_a"><strong>Accéder :</strong> onglet Stock → « Ajouter un produit ».</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_pro_f3_t">📄 Factures &amp; Devis</h3>
+            <p data-i18n="h_pro_f3_d">Éditeur professionnel au format A4, logo de votre entreprise, calcul automatique des taxes, export PDF prêt à envoyer. Les documents Premium reçoivent un filigrane discret anti-contrefaçon.</p>
+            <p class="home-feature-access" data-i18n="h_pro_f3_a"><strong>Accéder :</strong> onglet Document → Facture ou Devis.</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_pro_f4_t">📊 Historique</h3>
+            <p data-i18n="h_pro_f4_d">Toutes vos ventes et tous vos documents générés, classés par date, consultables et réimprimables à tout moment — même sans connexion internet.</p>
+            <p class="home-feature-access" data-i18n="h_pro_f4_a"><strong>Accéder :</strong> onglet Historique.</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_pro_f5_t">🔒 Sécurité &amp; Sauvegarde</h3>
+            <p data-i18n="h_pro_f5_d">Verrouillage de l'application par code personnel, et export d'une sauvegarde JSON complète pour changer de téléphone sans jamais perdre une donnée.</p>
+            <p class="home-feature-access" data-i18n="h_pro_f5_a"><strong>Accéder :</strong> Plus → Réglages → Sécurité / Sauvegarde.</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_pro_f6_t">📈 Chaîne GoBD</h3>
+            <p data-i18n="h_pro_f6_d">Chaque vente est chaînée par hachage cryptographique à la précédente : impossible de modifier ou d'insérer discrètement une écriture après coup — une vraie immuabilité comptable, pas juste une promesse.</p>
+            <p class="home-feature-access" data-i18n="h_pro_f6_a"><strong>Avantage :</strong> conformité et confiance, sans effort de votre part.</p>
+          </div>
+        </div>
+        <p class="home-section-cta"><button type="button" class="home-text-link" data-goto="kalcul" data-i18n="h_pro_cta">→ Ouvrir Etwas Pro maintenant</button></p>
+      </section>
+
+      <!-- ============ ETWAS ADS ============ -->
+      <section class="home-section" aria-labelledby="h-ads-title">
+        <img src="etwas-ads-logo.png" alt="Etwas ADS" class="home-section-logo">
+        <div class="home-section-eyebrow" data-i18n="h_ads_eyebrow">PRODUIT 2 — LA MARKETPLACE</div>
+        <h2 id="h-ads-title" data-i18n="h_ads_title">Etwas ADS — votre boutique, vue par tout le monde.</h2>
+        <p class="home-section-intro" data-i18n="h_ads_intro"><em>Etwas ADS</em> est la marketplace mondiale d'Etwas : chaque commerçant y crée sa boutique et publie ses annonces — produits physiques comme services digitaux — visibles par des acheteurs partout dans le monde, avec un filtre de proximité pour privilégier le commerce local quand c'est pertinent.</p>
+
+        <div class="home-feature-grid">
+          <div class="home-feature">
+            <h3 data-i18n="h_ads_f1_t">🏪 Créer sa boutique</h3>
+            <p data-i18n="h_ads_f1_d">Nom, catégorie, ville, logo, et position géographique optionnelle — pour que les acheteurs proches de vous puissent vous trouver via le filtre « Autour de moi ».</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_ads_f2_t">📣 Publier une annonce</h3>
+            <p data-i18n="h_ads_f2_d">Jusqu'à 10 photos, description riche, prix affichable dans n'importe quelle devise (conversion automatique), et un contact WhatsApp direct pour l'acheteur.</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_ads_f3_t">🔍 Découvrir</h3>
+            <p data-i18n="h_ads_f3_d">Recherche instantanée, catégories, tri par pertinence ou par proximité (formule de Haversine calculée localement — votre position n'est jamais envoyée à un serveur).</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_ads_f4_t">⚡ Achat Express 1-Clic</h3>
+            <p data-i18n="h_ads_f4_d">Un message WhatsApp préformaté part directement vers le vendeur, avec la référence de l'annonce et le prix déjà converti dans votre devise — sans remplir aucun formulaire.</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_ads_f5_t">🚀 Booster sa boutique</h3>
+            <p data-i18n="h_ads_f5_d">31 jours de mise en avant prioritaire dans les résultats, et une place garantie dans la section « Boutiques boostées » de cette page d'accueil — la vitrine la plus visible d'Etwas.</p>
+          </div>
+          <div class="home-feature">
+            <h3 data-i18n="h_ads_f6_t">🔗 Fusion avec Etwas Pro</h3>
+            <p data-i18n="h_ads_f6_d">Un commerçant qui utilise déjà Etwas Pro peut publier n'importe quel produit de son Stock vers Etwas ADS en un seul clic, sans ressaisir la description ni les photos — les deux mondes communiquent en temps réel.</p>
+          </div>
+        </div>
+        <p class="home-section-cta"><button type="button" class="home-text-link" data-goto="marketplace" data-i18n="h_ads_cta">→ Ouvrir Etwas ADS maintenant</button></p>
+      </section>
+
+      <!-- ============ TARIFS ============ -->
+      <section class="home-section" aria-labelledby="h-pricing-title">
+        <div class="home-section-eyebrow" data-i18n="h_pricing_eyebrow">UN SEUL PAIEMENT, TOUT ETWAS</div>
+        <h2 id="h-pricing-title" data-i18n="h_pricing_title">Des tarifs simples, un accès total.</h2>
+        <p class="home-section-intro" data-i18n="h_pricing_intro">Un seul paiement débloque <strong>Etwas Pro ET Etwas ADS</strong> simultanément — jamais deux abonnements séparés. Paiement via KKiaPay (Mobile Money, carte Visa/Mastercard) ou Plisio (crypto : USDT, BTC...) ; Stripe et PayPal arrivent avec l'activation en Europe.</p>
+        <ul class="home-pricing-list">
+          <li><strong data-i18n="h_price_trial_t">Essai complet — 1 € / 656 F CFA</strong><span data-i18n="h_price_trial_d">30 jours d'accès total et illimité, sans aucune restriction. La porte d'entrée idéale pour juger par vous-même.</span></li>
+          <li><strong data-i18n="h_price_month_t">Mensuel à Semestriel</strong><span data-i18n="h_price_month_d">De 10 838 à 48 875 F CFA — pour une activité qui démarre ou qui teste Etwas sur la durée, avec la liberté de ne pas s'engager longtemps.</span></li>
+          <li><strong data-i18n="h_price_year_t">Annuel à 3 ans</strong><span data-i18n="h_price_year_d">De 80 750 à 177 650 F CFA — le meilleur rapport prix/jour, pensé pour les commerces déjà installés.</span></li>
+          <li><strong data-i18n="h_price_life_t">À vie — 403 750 F CFA</strong><span data-i18n="h_price_life_d">Un seul paiement, plus jamais aucune échéance. L'option préférée des entrepreneurs qui pensent long terme.</span></li>
+        </ul>
+        <p class="home-section-cta"><button type="button" class="home-text-link" data-goto="payment" data-i18n="h_price_cta">→ Voir tous les tarifs en détail</button></p>
+      </section>
+
+      <!-- ============ ACTUALITÉS ============ -->
+      <section class="home-section" aria-labelledby="h-news-title">
+        <div class="home-section-eyebrow" data-i18n="h_news_eyebrow">ACTUALITÉS ETWAS</div>
+        <h2 id="h-news-title" data-i18n="h_news_title">Ce qui évolue sur la Caisse, le Stock et la Marketplace.</h2>
+        <p class="home-section-intro" data-i18n="h_news_intro">Cette section se met à jour au fil des versions d'Etwas — une nouvelle entrée apparaît automatiquement dès sa date de publication, sans qu'aucune mise à jour de l'application ne soit nécessaire pour la voir.</p>
+        <div id="homeNewsList" class="home-news-list"></div>
+      </section>
+
+      <!-- ============ HISTOIRE / À PROPOS ============ -->
+      <section class="home-section" aria-labelledby="h-about-title">
+        <img src="etwas-mark-square.png" alt="Etwas" class="home-section-logo" style="border-radius:14px;">
+        <div class="home-section-eyebrow" data-i18n="h_about_eyebrow">NOTRE HISTOIRE</div>
+        <h2 id="h-about-title" data-i18n="h_about_title">Pourquoi Etwas existe.</h2>
+        <p data-i18n="h_about_p1">Etwas est né de la fusion de deux outils indépendants — <strong>Kalcul Pro</strong>, une caisse locale conçue pour fonctionner sans connexion internet fiable, et <strong>DONKO ADS</strong>, une marketplace pensée pour donner une vitrine mondiale à des commerçants souvent limités à leur seul quartier. Les deux étaient portés par <strong>Empire Donko</strong>, enregistré sous la dénomination <strong>TransTech Dynamic</strong> au Bénin.</p>
+        <p data-i18n="h_about_p2">L'intuition fondatrice est simple : un commerçant ne devrait pas avoir à choisir entre « bien vendre localement » et « exister à l'international ». Etwas réunit les deux dans une seule application, <em>local-first</em> par conception — elle fonctionne d'abord sur l'appareil, la connexion n'étant qu'un pont occasionnel vers les autres.</p>
+        <p data-i18n="h_about_p3">L'écosystème est aujourd'hui en transition vers <strong>DONKO UG (haftungsbeschränkt)</strong>, société de droit allemand en cours de constitution, qui portera à terme l'ensemble de la marque Etwas. Tant que cette structure n'est pas officiellement immatriculée, Empire Donko (TransTech Dynamic) demeure l'unique éditeur juridiquement responsable de l'application — voir les Mentions Légales pour le détail exact.</p>
+        <p data-i18n="h_about_p4">Notre ambition à l'horizon <strong>2031</strong> : faire d'Etwas un écosystème de commerce mondial où chaque vendeur garde la propriété pleine et entière de ses données, où l'anonymat (zéro email, zéro mot de passe) est la norme et non l'exception, et où la même application sert aussi bien un commerçant de quartier qu'une entreprise qui vend sur plusieurs continents.</p>
+      </section>
+
+    </article>
+
+    <!-- ============ PIED DE PAGE COMPLET ============ -->
+    <footer class="home-footer" id="homeFooter">
+      <div class="home-footer-grid">
+        <div class="home-footer-col">
+          <h4 data-i18n="hf_col1_t">Etwas Pro</h4>
+          <button type="button" data-goto="kalcul" data-i18n="hf_col1_l1">Caisse (POS)</button>
+          <button type="button" data-goto="kalcul" data-i18n="hf_col1_l2">Gestion de Stock</button>
+          <button type="button" data-goto="kalcul" data-i18n="hf_col1_l3">Factures &amp; Devis</button>
+          <button type="button" data-goto="kalcul" data-i18n="hf_col1_l4">Historique des ventes</button>
+        </div>
+        <div class="home-footer-col">
+          <h4 data-i18n="hf_col2_t">Etwas ADS</h4>
+          <button type="button" data-goto="marketplace" data-i18n="hf_col2_l1">Créer ma boutique</button>
+          <button type="button" data-goto="marketplace" data-i18n="hf_col2_l2">Publier une annonce</button>
+          <button type="button" data-goto="marketplace" data-i18n="hf_col2_l3">Booster ma visibilité</button>
+          <button type="button" data-goto="marketplace" data-i18n="hf_col2_l4">Rechercher autour de moi</button>
+        </div>
+        <div class="home-footer-col">
+          <h4 data-i18n="hf_col3_t">Compte &amp; Accès</h4>
+          <button type="button" data-goto="payment" data-i18n="hf_col3_l1">Tarifs &amp; paiement</button>
+          <button type="button" id="footLegalGuide" data-i18n="hf_col3_l2">Guide complet d'Etwas</button>
+          <button type="button" id="footLegalMentions" data-i18n="hf_col3_l3">Mentions légales</button>
+          <button type="button" id="footLegalCgu" data-i18n="hf_col3_l4">CGU</button>
+        </div>
+        <div class="home-footer-col">
+          <h4 data-i18n="hf_col4_t">Partenariat</h4>
+          <p class="home-footer-text" data-i18n="footer_partner_s">Une idée d'outil sur mesure pour votre activité ? Écrivez-nous.</p>
+          <div class="home-contact-btns">
+            <a class="home-contact-btn wa" href="https://wa.me/2290196809106?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20Etwas." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#25D366"/><path fill="#fff" d="M12 6.2a5.8 5.8 0 0 0-5 8.7l-.8 2.9 3-.8a5.8 5.8 0 1 0 2.8-10.8Zm0 1.3a4.5 4.5 0 0 1 3.9 6.8 4.5 4.5 0 0 1-7 1.1l-.2-.1-1.7.4.5-1.6-.1-.2a4.5 4.5 0 0 1 4.6-6.4Zm-2.1 2.3c-.1 0-.3 0-.4.2-.2.2-.6.6-.6 1.4s.6 1.7.7 1.8c.1.1 1.2 2 3 2.6.4.2.8.3 1 .3.5.1.9.1 1.2-.1.3-.2.6-.6.7-.9l.1-.4-1.6-.8-.5.6c0 .1-.1.1-.3 0-.2-.1-.7-.3-1.3-.9-.5-.4-.9-1-1-1.2-.1-.2 0-.2 0-.3l.4-.5c.1-.1.1-.2 0-.3l-.6-1.3c-.1-.2-.2-.2-.4-.2h-.3Z"/></svg>
+            </a>
+            <a class="home-contact-btn mail" href="mailto:empiredonko@gmail.com?subject=Partenariat%20%2F%20outil%20personnalis%C3%A9%20-%20Etwas" aria-label="Email">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#082045"/><path fill="#fff" d="M6.5 8.3h11c.6 0 1 .4 1 1v5.4c0 .6-.4 1-1 1h-11c-.6 0-1-.4-1-1V9.3c0-.6.4-1 1-1Zm.7 1.1L12 12.9l4.8-3.5H7.2Z"/></svg>
+            </a>
+          </div>
+          <a class="home-store-btn" href="https://empirecode.mychariow.co/" target="_blank" rel="noopener noreferrer">
+            <span class="home-store-dot"></span> 🛍️ EMPIRE CODE
           </a>
         </div>
       </div>
-
-      <a class="home-store-btn" href="https://empirecode.mychariow.co/" target="_blank" rel="noopener noreferrer">
-        <span class="home-store-dot"></span> 🛍️ EMPIRE CODE
-      </a>
-
-      <p class="home-powered">Propulsé par <strong>EMPIRE DONKO</strong></p>
-    </div>
+      <div class="home-footer-langtheme">
+        <button type="button" id="footerLangBtn" class="home-footer-pill">🌐 <span id="footerLangLabel">Français</span></button>
+      </div>
+      <p class="home-footer-legal" data-i18n="hf_legal">Etwas est édité par Empire Donko (TransTech Dynamic), Bénin — en transition vers DONKO UG (Allemagne). Voir les Mentions Légales pour le détail exact de l'entité responsable.</p>
+      <p class="home-powered">© 2026 <strong data-i18n="hf_brand">ETWAS</strong> · <span data-i18n="hf_tagline">Own Your Commerce.</span> · <span data-i18n="powered_by">Propulsé par</span> <strong>EMPIRE DONKO</strong></p>
+    </footer>
   </div>
   <iframe id="frameKalcul" title="Etwas Caisse" src="etwas-kalcul.html"></iframe>
   <iframe id="frameMarketplace" title="Etwas Marketplace" src="etwas-marketplace.html" class="etwas-hidden"></iframe>
+
 
   <!-- ============================================================
        PAGE DE PAIEMENT UNIQUE — un seul et unique tunnel de paiement

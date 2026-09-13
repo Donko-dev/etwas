@@ -3438,6 +3438,7 @@ function paintFromCache(){
     state.allBoutiques = parsed.allBoutiques || [];
     state.boutiquesBoostees = parsed.boutiquesBoostees || [];
     renderGallery();
+    try{ if(window.parent && window.parent !== window) window.parent.postMessage({type:'etwas:boosted-shops', shops: state.boutiquesBoostees}, '*'); }catch(e){}
     return true;
   }catch(e){ return false; }
 }
@@ -3459,6 +3460,7 @@ async function loadGallery(){
     state.boutiquesBoostees = data.boutiquesBoostees || [];
     localStorage.setItem('etwas_ads_cache', JSON.stringify({ annonces: state.annonces, allBoutiques: state.allBoutiques, boutiquesBoostees: state.boutiquesBoostees }));
     renderGallery();
+    try{ if(window.parent && window.parent !== window) window.parent.postMessage({type:'etwas:boosted-shops', shops: state.boutiquesBoostees}, '*'); }catch(e){}
   }catch(err){
     // Pas de connexion / échec réseau : on reste simplement sur ce qui est
     // déjà affiché depuis le cache (étape 1). On ne casse rien.
