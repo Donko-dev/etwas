@@ -1784,7 +1784,7 @@ let docs = load(KEYS.docs, []);
 let pro = load(KEYS.pro, {active:false, expiresAt:null, planId:null});
 let trialLimitOverride = load(KEYS.trialOverride, null); // bonus/illimité attribué depuis l'Espace Réservé
 let counters = load(KEYS.counters, {facture:0, devis:0});
-let currency = load(KEYS.currency, "XOF");
+let currency = load(KEYS.currency, "EUR");
 let rates = load(KEYS.rates, {EUR_USD:null, updatedAt:null});
 // (la sélection de plan se fait désormais exclusivement dans la page de
 // paiement unique du shell — voir EtwasShell.js)

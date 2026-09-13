@@ -340,6 +340,7 @@ html[data-theme="dark"] .home-news-date{ color:#9FC1FF; }
 .pay-plan .pp-label{ font-size:12.5px; font-weight:700; color:var(--etwas-navy); margin-bottom:4px; }
 .pay-plan .pp-old{ font-size:11px; color:#9aa4b5; text-decoration:line-through; display:block; }
 .pay-plan .pp-new{ font-size:17px; font-weight:800; color:var(--etwas-navy); display:block; }
+.pay-plan .pp-eur{ font-size:11.5px; color:#6b7488; margin-top:1px; }
 .pay-plan .pp-days{ font-size:11px; color:#6b7488; margin-top:3px; }
 
 .pay-gateways{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }

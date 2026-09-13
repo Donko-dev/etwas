@@ -581,6 +581,10 @@ var selectedPayPlan = PAY_PLANS[0];
 
 function fcfaFmt(n){ return n.toLocaleString("fr-FR") + " F CFA"; }
 
+function eurFmt(fcfa){
+  var eur = fcfa / FCFA_PER_EUR;
+  return "≈ " + eur.toLocaleString("fr-FR", {minimumFractionDigits:2, maximumFractionDigits:2}) + " €";
+}
 function renderPayPlans(){
   var grid = $("payPlansGrid");
   if(!grid) return;
@@ -590,6 +594,7 @@ function renderPayPlans(){
       '<div class="pp-label">' + p.label + '</div>' +
       (p.old ? '<span class="pp-old">' + fcfaFmt(p.old) + '</span>' : '') +
       '<span class="pp-new">' + fcfaFmt(p.priceNew) + '</span>' +
+      '<div class="pp-eur">' + eurFmt(p.priceNew) + '</div>' +
       '<div class="pp-days">' + (p.days>=36500 ? "Accès illimité" : p.days + " jours") + '</div>' +
     '</div>';
   }).join("");
