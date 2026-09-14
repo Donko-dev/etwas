@@ -223,7 +223,7 @@ HOME_I18N.en = {
 };
 
 HOME_I18N.de = {
-  h_slogan: "<em>Own Your Commerce.</em> — <em>Besitzen Sie Ihren Handel.</em>",
+  h_slogan: "<em>Own Your Commerce.</em> — <em>Ihr Handel, Ihre Kontrolle.</em>",
   h_hero_title: "Das souveräne, lokal-first Ökosystem, um Ihr gesamtes Geschäft zu besitzen.",
   h_hero_lede: "Etwas vereint in einer einzigen App, wofür anderswo zehn verschiedene Tools nötig sind: eine professionelle Kasse (<strong>Etwas Pro</strong>) und einen weltweiten Marktplatz (<strong>Etwas ADS</strong>) — zu 100% offline, ohne Registrierung, ohne Passwort.",
   h_install_btn: "📲 Etwas auf diesem Gerät installieren",
@@ -291,7 +291,7 @@ HOME_I18N.de = {
   h_about_p1: "Etwas entstand aus der Fusion zweier unabhängiger Tools — <strong>Kalcul Pro</strong>, eine lokale Kasse für den Betrieb ohne zuverlässiges Internet, und <strong>DONKO ADS</strong>, ein Marktplatz, der Händlern, die oft auf ihr eigenes Viertel beschränkt waren, ein weltweites Schaufenster geben sollte. Beide wurden von <strong>Empire Donko</strong> betrieben, eingetragen unter dem Namen <strong>TransTech Dynamic</strong> in Benin.",
   h_about_p2: "Die Gründungsidee ist einfach: Ein Händler sollte nicht zwischen „gut lokal verkaufen“ und „international existieren“ wählen müssen. Etwas vereint beides in einer App, die von Grund auf <em>lokal-first</em> ist — sie läuft zuerst auf dem Gerät, die Verbindung ist nur gelegentlich eine Brücke zu allem anderen.",
   h_about_p3: "Das Ökosystem befindet sich derzeit im Übergang zu <strong>DONKO UG (haftungsbeschränkt)</strong>, einer im Aufbau befindlichen deutschen Gesellschaft, die künftig die gesamte Marke Etwas tragen wird. Solange diese Gesellschaft nicht offiziell eingetragen ist, bleibt Empire Donko (TransTech Dynamic) der einzige rechtlich verantwortliche Herausgeber der App — Details siehe Impressum.",
-  h_about_p4: "Unser Ziel bis <strong>2031</strong>: Etwas zu einem globalen Handelsökosystem machen, in dem jeder Verkäufer die volle Kontrolle über seine Daten behält, in dem Anonymität (null E-Mail, null Passwort) die Norm statt die Ausnahme ist, und in dem dieselbe App sowohl einem Nachbarschaftsladen als auch einem auf mehreren Kontinenten verkaufenden Unternehmen dient.",
+  h_about_p4: "Unser Ziel bis <strong>2031</strong>: Etwas zu einem globalen Handelsökosystem machen, in dem jeder Verkäufer die volle Kontrolle über seine Daten behält, in dem Anonymität (null E-Mail, null Passwort) die Regel statt der Ausnahme ist, und in dem dieselbe App sowohl einem Nachbarschaftsladen als auch einem auf mehreren Kontinenten verkaufenden Unternehmen dient.",
   hf_col1_t: "Etwas Pro", hf_col1_l1: "Kasse (POS)", hf_col1_l2: "Lagerverwaltung", hf_col1_l3: "Rechnungen & Angebote", hf_col1_l4: "Verkaufshistorie",
   hf_col2_t: "Etwas ADS", hf_col2_l1: "Mein Geschäft erstellen", hf_col2_l2: "Anzeige veröffentlichen", hf_col2_l3: "Sichtbarkeit boosten", hf_col2_l4: "In meiner Nähe suchen",
   hf_col3_t: "Konto & Zugang", hf_col3_l1: "Preise & Zahlung", hf_col3_l2: "Vollständiger Etwas-Leitfaden", hf_col3_l3: "Impressum", hf_col3_l4: "AGB",
